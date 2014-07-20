@@ -1,0 +1,8 @@
+AccessModifierOffset: -4
+AllowShortIfStatementsOnASingleLine: false
+BreakBeforeBraces: Attach
+ColumnLimit: 0
+IndentCaseLabels: false
+IndentWidth: 4
+Standard: Cpp11
+UseTab: Never
