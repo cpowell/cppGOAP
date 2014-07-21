@@ -10,6 +10,7 @@
 
 #include "WorldVariable.h"
 
+#include <ostream>
 #include <vector>
 
 
@@ -23,8 +24,6 @@ private:
     // 2 = enemy in weapon range
     // 3 = weapon loaded
     // 4 = weapon drawn
-
-
 
 public:
     int priority_; // only used when the world state is a goal state
@@ -65,5 +64,22 @@ public:
      @return the number of state-var differences between us and them
     */
     int difference(const WorldState& other);
+
+    // A friend function of a class is defined outside that class' scope but it has the
+    // right to access all private and protected members of the class. Even though the
+    // prototypes for friend functions appear in the class definition, friends are not
+    // member functions.
+    friend std::ostream& operator<<(std::ostream& out, const WorldState& n);
 };
+
+inline std::ostream& operator<<(std::ostream& out, const WorldState& n) {
+    out << "WorldState { ";
+
+    for (int i = 0; i < 5; ++i) {
+        out << n.state_vars_[i] << ", ";
+    }
+
+    out << "}";
+    return out;
+}
 

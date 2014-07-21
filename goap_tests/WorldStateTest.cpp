@@ -146,4 +146,6 @@ TEST_F(WorldStateTest, difference_counts_only_those_that_matter) {
     ASSERT_EQ(1, ws.difference(ws2));
     ws.state_vars_[4] = true;
     ASSERT_EQ(2, ws.difference(ws2));
+
+    //std::cout << ws << std::endl;
 }

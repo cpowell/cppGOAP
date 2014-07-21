@@ -1,6 +1,5 @@
 #include "WorldState.h"
 
-
 WorldState::WorldState() : priority_(0) {
     for (int i = 0; i < 5; ++i) {
         state_vars_[i] = false;
