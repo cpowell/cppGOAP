@@ -77,3 +77,73 @@ TEST_F(WorldStateTest, goal_not_met_for_nonmatch) {
     ws.state_vars_[1] = false;
     ASSERT_FALSE(dead_enemy_goal.metBy(ws));
 }
+
+TEST_F(WorldStateTest, no_difference_when_all_false) {
+    ws.state_vars_[0] = false;
+    ws.state_vars_[1] = false;
+    ws.state_vars_[2] = false;
+    ws.state_vars_[3] = false;
+    ws.state_vars_[4] = false;
+
+    WorldState ws2;
+    ws2.state_vars_[0] = false;
+    ws2.state_vars_[1] = false;
+    ws2.state_vars_[2] = false;
+    ws2.state_vars_[3] = false;
+    ws2.state_vars_[4] = false;
+    ws2.var_matters_[0] = false;
+    ws2.var_matters_[1] = false;
+    ws2.var_matters_[2] = false;
+    ws2.var_matters_[3] = false;
+    ws2.var_matters_[4] = false;
+
+    ASSERT_EQ(0, ws.difference(ws2));
+}
+
+TEST_F(WorldStateTest, no_difference_when_nothing_matters) {
+    ws.state_vars_[0] = true;
+    ws.state_vars_[1] = false;
+    ws.state_vars_[2] = false;
+    ws.state_vars_[3] = true;
+    ws.state_vars_[4] = false;
+
+    WorldState ws2;
+    ws2.state_vars_[0] = false;
+    ws2.state_vars_[1] = true;
+    ws2.state_vars_[2] = true;
+    ws2.state_vars_[3] = false;
+    ws2.state_vars_[4] = false;
+    ws2.var_matters_[0] = false;
+    ws2.var_matters_[1] = false;
+    ws2.var_matters_[2] = false;
+    ws2.var_matters_[3] = false;
+    ws2.var_matters_[4] = false;
+
+    ASSERT_EQ(0, ws.difference(ws2));
+}
+
+TEST_F(WorldStateTest, difference_counts_only_those_that_matter) {
+    ws.state_vars_[0] = true;
+    ws.state_vars_[1] = false;
+    ws.state_vars_[2] = false;
+    ws.state_vars_[3] = true;
+    ws.state_vars_[4] = false;
+
+    WorldState ws2;
+    ws2.state_vars_[0] = false;
+    ws2.state_vars_[1] = true;
+    ws2.state_vars_[2] = true;
+    ws2.state_vars_[3] = false;
+    ws2.state_vars_[4] = false;
+    ws2.var_matters_[0] = true;
+    ws2.var_matters_[1] = false;
+    ws2.var_matters_[2] = false;
+    ws2.var_matters_[3] = false;
+    ws2.var_matters_[4] = false;
+
+    ASSERT_EQ(1, ws.difference(ws2));
+    ws2.var_matters_[4] = true;
+    ASSERT_EQ(1, ws.difference(ws2));
+    ws.state_vars_[4] = true;
+    ASSERT_EQ(2, ws.difference(ws2));
+}

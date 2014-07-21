@@ -12,6 +12,8 @@
 
 #include <vector>
 
+
+
 class WorldState {
 private:
     //std::vector<WorldVariable> vars_; // TODO
@@ -56,5 +58,12 @@ public:
     //void addVariable(WorldVariable var);
     //bool operator==(const WorldState& other) const;
 
+    /**
+     Given the other state -- and what 'matters' to the other state -- how many
+     of our state variables differ from the other?
+     @param other the goal state to compare against
+     @return the number of state-var differences between us and them
+    */
+    int difference(const WorldState& other);
 };
 
