@@ -44,7 +44,7 @@ public:
      Confirms that this worldstate has at least one state variable "that matters".
      @return true if the state is valid, false if not
     */
-    bool valid();
+    bool valid() const;
 
     /**
      Useful if this state is a goal state. It asks, does state 'other'
@@ -53,7 +53,7 @@ public:
      @param other the state you are testing as having met this goal state
      @return true if it meets this goal state, false otherwise
     */
-    bool metBy(const WorldState& other); //TODO better as meetsGoal() ??
+    bool metBy(const WorldState& other) const; //TODO better as meetsGoal() ??
     //void addVariable(WorldVariable var);
     //bool operator==(const WorldState& other) const;
 
@@ -63,7 +63,9 @@ public:
      @param other the goal state to compare against
      @return the number of state-var differences between us and them
     */
-    int difference(const WorldState& other);
+    int difference(const WorldState& other) const; // FIXME other matters, or this?
+
+    bool operator==(const WorldState& other) const;
 
     // A friend function of a class is defined outside that class' scope but it has the
     // right to access all private and protected members of the class. Even though the

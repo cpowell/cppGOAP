@@ -7,6 +7,7 @@
 //}
 
 #include "Action.h"
+#include "AStar.h"
 #include "WorldState.h"
 
 #include <iostream>
@@ -17,6 +18,7 @@ int main(void) {
     std::vector<Action> actions;
 
     Action scout;
+    scout.setPrecondition(0, false);
     scout.setEffect(0, true);
     scout.setName("scout");
     actions.push_back(scout);
@@ -24,18 +26,22 @@ int main(void) {
     Action approach;
     approach.setName("approach enemy");
     approach.setPrecondition(0, true);
+    approach.setPrecondition(1, false);
+    approach.setPrecondition(2, false);
     approach.setEffect(2, true);
     actions.push_back(approach);
 
     Action load;
     load.setName("load weapon");
+    load.setPrecondition(3, false);
     load.setPrecondition(4, true);
     load.setEffect(3, true);
     actions.push_back(load);
 
     Action draw;
     draw.setName("draw weapon");
-    draw.setEffect(3, true);
+    draw.setPrecondition(4, false);
+    draw.setEffect(4, true);
     actions.push_back(draw);
 
     Action attack;
@@ -45,6 +51,7 @@ int main(void) {
     attack.setPrecondition(2, true);
     attack.setPrecondition(3, true);
     attack.setPrecondition(4, true);
+    attack.setEffect(1, true);
     actions.push_back(attack);
 
     WorldState goalState;
@@ -57,7 +64,16 @@ int main(void) {
     goalState.var_matters_[1] = true;
 
     WorldState initialState;
-    initialState.state_vars_[0] = false;
+
+    AStar as;
+    as.setStart(initialState);
+    as.setGoal(goalState);
+    try {
+        as.plan(actions);
+    }
+    catch (const std::exception& ex) {
+        std::cout << "Sorry, could not find a path!\n";
+    }
 
 
 

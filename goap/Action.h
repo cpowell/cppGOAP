@@ -26,21 +26,24 @@ private:
 public:
     Action();
 
-    bool eligibleFor(const WorldState& node);
-    WorldState actOn(const WorldState& node);
+    bool eligibleFor(const WorldState& ws) const;
+    WorldState actOn(const WorldState& ws) const;
 
-    void setPrecondition(int index, bool value) {
+    void setPrecondition(const int index, const bool value) {
         preconditions_[index] = value; // TODO yeah this should be range checked
+        precondition_matters_[index] = true;
     }
 
-    void setEffect(int index, bool value) {
+    void setEffect(const int index, const bool value) {
         effects_[index] = value; // TODO range check
+        has_effect_[index] = true;
     }
 
-    void setName(std::string name) {
+    void setName(const std::string name) {
         name_ = name;
     }
 
-    std::string name() { return name_; }
+    int cost() const { return cost_; }
+    std::string name() const { return name_; }
 };
 

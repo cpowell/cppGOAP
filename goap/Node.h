@@ -16,10 +16,13 @@ struct Node {
     int h_;                  //!< The heuristic for remaining cost (don't overestimate!)
     int f_;                  //!< g+h combined.
     //std::string actionname_; //!< How did we get to this node?
-    WorldState parentws_;    //!< Where did we come from?
+    //WorldState parentws_;    //!< Where did we come from?
+    Node* parent_;
 
     Node();
-    Node(WorldState& state, int g, int h, int f, WorldState& parent);
+    Node(WorldState& state, int g, int h, int f, Node* parent);
+
+    bool operator<(const Node& other);
 
     // A friend function of a class is defined outside that class' scope but it has the
     // right to access all private and protected members of the class. Even though the
@@ -30,7 +33,7 @@ struct Node {
 
 inline std::ostream& operator<<(std::ostream& out, const Node& n) {
     out << "Node { F:" << n.f_ << ", G:" << n.g_ << ", H:" << n.h_;
-    out << " " << n.ws_ << ", parent: " << n.parentws_ << "}";
+    out << " " << n.ws_ << "}";
     return out;
 }
 
@@ -40,19 +43,10 @@ us compare two Nodes by their F values. This is useful for
 using binary_search and lower_bound to search the node lists.
 https://stackoverflow.com/questions/18406479/binary-search-with-stdpair-using-a-custom-operator
 */
-struct CompareNodeByF {
-    // Here is the function that will be called by std::sort:
-    bool operator()(const Node& lhs, const Node& rhs) const {
-        //if (lhs.f_ < rhs.f_) {
-        //    return true;
-        //}
-
-        //if (rhs.f_ < lhs.f_) {
-        //    return false;
-        //}
-        //        return (!(lhs.f_ < rhs.f_) && (!rhs.f_ < lhs.f_));
-        return lhs.f_ < rhs.f_;
-
-    }
-};
+//struct CompareNodeByF {
+//    // Here is the function that will be called by std::sort:
+//    bool operator()(const Node& lhs, const Node& rhs) const {
+//        return lhs.f_ < rhs.f_;
+//    }
+//};
 

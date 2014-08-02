@@ -7,39 +7,38 @@ WorldState::WorldState() : priority_(0) {
     }
 }
 
-
-// void WorldState::addVariable(WorldVariable var) {
-//  vars_.push_back(var);
-// }
-
-//bool WorldState::operator==(const WorldState& other) const {
-//  enemy_dead_ == other.enemy_dead_ &&
-//      enemy_sighted_ == other.enemy_sighted_ &&
-//      weap
-//}
-
-bool WorldState::valid() {
+bool WorldState::operator==(const WorldState& other) const {
     for (int i = 0; i < 5; ++i) {
-        if (var_matters_[i])
-        { return true; }
+        if (state_vars_[i] != other.state_vars_[i]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+
+bool WorldState::valid() const {
+    for (int i = 0; i < 5; ++i) {
+        if (var_matters_[i]) {
+            return true;
+        }
     }
 
     return false;
 }
 
-bool WorldState::metBy(const WorldState& other) {
-    bool result = true;
-
+bool WorldState::metBy(const WorldState& other) const {
     for (int i = 0; i < 5; ++i) {
         if (var_matters_[i] && state_vars_[i] != other.state_vars_[i]) {
-            result = false;
+            return false;
         }
     }
 
-    return result;
+    return true;
 }
 
-int WorldState::difference(const WorldState& other) {
+int WorldState::difference(const WorldState& other) const {
     int result = 0;
 
     for (int i = 0; i < 5; ++i) {
