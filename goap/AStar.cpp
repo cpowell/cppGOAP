@@ -38,13 +38,13 @@ bool AStar::memberOfClosed(const WorldState& ws) const {
     return false;
 }
 
-bool AStar::memberOfOpen(const WorldState& ws) const {
-    for (const auto& node : open_) {
+Node* AStar::memberOfOpen(const WorldState& ws) {
+    for (auto& node : open_) {
         if (node.ws_ == ws) {
-            return true;
+            return &node;
         }
     }
-    return false;
+    return nullptr;
 }
 
 void AStar::printOpenList() const {
@@ -80,30 +80,30 @@ void AStar::plan(std::vector<Action>& actions) {
 
         // Look for Node with the lowest-F-score on the open list. Switch it to closed,
         // and hang onto it -- this is our latest node.
-        Node& latest(popAndClose());
+        Node& current(popAndClose());
 
 //         std::cout << "Open list\n";
 //         printOpenList();
 //         std::cout << "Closed list\n";
 //         printClosedList();
 
-        std::cout << "\nLatest is " << latest << std::endl;
+        std::cout << "\Current is " << current << std::endl;
 
-        // Is our latest state the goal state? If so, we've found a path, yay.
-        if (goal_.metBy(latest.ws_)) {
+        // Is our current state the goal state? If so, we've found a path, yay.
+        if (goal_.metBy(current.ws_)) {
             std::cout << "Found a path!\n";
             do {
-                std::cout << latest.action_->name() << " yields " << latest.ws_ << std::endl;
-                latest = known_nodes_.at(latest.parent_id_);
-            } while (latest.parent_id_ != 0);
-            break;
+                std::cout << current.action_->name() << " yields " << current.ws_ << std::endl;
+                current = known_nodes_.at(current.parent_id_);
+            } while (current.parent_id_ != 0);
+            break; // and we're done
         }
 
         for (auto& action : actions) {
             // for each node REACHABLE from "me":
-            if (action.eligibleFor(latest.ws_)) {
+            if (action.eligibleFor(current.ws_)) {
                 std::cout << "Hmm, " << action.name() << " could work...";
-                WorldState possibility = action.actOn(latest.ws_);
+                WorldState possibility = action.actOn(current.ws_);
                 std::cout << "resulting in " << possibility << std::endl;
 
                 //   if closed, next
@@ -112,21 +112,25 @@ void AStar::plan(std::vector<Action>& actions) {
                     continue;
                 }
 
-                //   if not on open list,
-                if (!memberOfOpen(possibility)) {
+                Node* needle = memberOfOpen(possibility);
+                if (needle==nullptr) {
+                    //   if not on open list,
                     //     make me its parent
                     //     record f,g,h for it
-                    Node found(possibility, (latest.g_ + action.cost()), (calculateHeuristic(possibility, goal_)), latest.id_, &action);
+                    Node found(possibility, (current.g_ + action.cost()), (calculateHeuristic(possibility, goal_)), current.id_, &action);
                     known_nodes_[found.id_] = found;
 
                     //     add to open list, mainining the sort-by-F order there
                     addToOpenList(std::move(found));
                 } else {
-                    //FIXME
                     //     if my path to it is better (G),
-                    //       make me its parent
-                    //       recalc F,G for it
-                    //       resort open list to account for new F
+                    if ((current.g_ + action.cost()) < needle->g_) {
+                        std::cout << "My path is better\n";
+                        needle->parent_id_ = current.id_;                     //       make me its parent
+                        needle->g_ = current.g_ + action.cost();              //       recalc F,G for it
+                        needle->h_ = calculateHeuristic(possibility, goal_);
+                        std::sort(open_.begin(), open_.end());                //       resort open list to account for new F
+                    }
                 }
             }
         }

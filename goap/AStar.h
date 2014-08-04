@@ -32,7 +32,7 @@ private:
 
     bool memberOfClosed(const WorldState& ws) const;
 
-    bool memberOfOpen(const WorldState& ws) const;
+    Node* memberOfOpen(const WorldState& ws);
 
     /**
      Pops the first Node from the 'open' list, moves it to the 'closed' list, and
