@@ -10,6 +10,12 @@ Action::Action() : cost_(0) {
     }
 }
 
+Action::Action(std::string name, int cost) : Action() {
+    // Because delegating constructors cannot initialize & delegate at the same time...
+    name_ = name;
+    cost_ = cost;
+}
+
 bool Action::eligibleFor(const WorldState& ws) const {
     for (int i = 0; i < 5; ++i) {
         if (precondition_matters_[i] && ws.state_vars_[i] != preconditions_[i]) {

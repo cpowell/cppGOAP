@@ -17,35 +17,30 @@ int main(void) {
     std::cout << "Weapon example running...\n";
     std::vector<Action> actions;
 
-    Action scout;
+    Action scout("scout", 5);
     scout.setPrecondition(0, false);
     scout.setEffect(0, true);
-    scout.setName("scout");
     actions.push_back(scout);
 
-    Action approach;
-    approach.setName("approach enemy");
+    Action approach("approach enemy", 2);
     approach.setPrecondition(0, true);
     approach.setPrecondition(1, false);
     approach.setPrecondition(2, false);
     approach.setEffect(2, true);
     actions.push_back(approach);
 
-    Action load;
-    load.setName("load weapon");
+    Action load("load weapon", 1);
     load.setPrecondition(3, false);
     load.setPrecondition(4, true);
     load.setEffect(3, true);
     actions.push_back(load);
 
-    Action draw;
-    draw.setName("draw weapon");
+    Action draw("draw weapon", 1);
     draw.setPrecondition(4, false);
     draw.setEffect(4, true);
     actions.push_back(draw);
 
-    Action attack;
-    attack.setName("attack enemy");
+    Action attack("attack enemy", 3);
     attack.setPrecondition(0, true);
     attack.setPrecondition(1, false);
     attack.setPrecondition(2, true);

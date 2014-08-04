@@ -73,20 +73,23 @@ void AStar::plan(std::vector<Action>& actions) {
         std::cout << "\n-----------------------\n";
         std::cout << "Iteration " << iters << std::endl;
 
+        // If there's nothing left to evaluate, then we have no possible path left
         if (open_.size() == 0) {
             throw std::runtime_error("Could not find a path");
         }
 
-        // Look for Node with the lowest-F-score on the open list and switch it to closed
+        // Look for Node with the lowest-F-score on the open list. Switch it to closed,
+        // and hang onto it -- this is our latest node.
         Node& latest(popAndClose());
 
-        std::cout << "Open list\n";
-        printOpenList();
-        std::cout << "Closed list\n";
-        printClosedList();
+//         std::cout << "Open list\n";
+//         printOpenList();
+//         std::cout << "Closed list\n";
+//         printClosedList();
 
         std::cout << "\nLatest is " << latest << std::endl;
 
+        // Is our latest state the goal state? If so, we've found a path, yay.
         if (goal_.metBy(latest.ws_)) {
             std::cout << "Found a path!\n";
             do {

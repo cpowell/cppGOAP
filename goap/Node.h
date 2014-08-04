@@ -37,7 +37,7 @@ struct Node {
 };
 
 inline std::ostream& operator<<(std::ostream& out, const Node& n) {
-    out << "Node { id:" << n.id_ << " parent:" << n.parent_id_ << " F:" << n.f_ << ", G:" << n.g_ << ", H:" << n.h_;
+    out << "Node { id:" << n.id_ << " parent:" << n.parent_id_ << " F:" << n.f_ << " G:" << n.g_ << " H:" << n.h_;
     out << ", " << n.ws_ << "}";
     return out;
 }

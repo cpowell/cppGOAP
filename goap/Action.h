@@ -25,6 +25,7 @@ private:
 
 public:
     Action();
+    Action(std::string name, int cost);
 
     bool eligibleFor(const WorldState& ws) const;
     WorldState actOn(const WorldState& ws) const;
