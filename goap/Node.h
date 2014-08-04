@@ -18,10 +18,12 @@ struct Node {
     int parent_id_;
     int g_;                  //!< The cost so far.
     int h_;                  //!< The heuristic for remaining cost (don't overestimate!)
-    int f_;                  //!< g+h combined.
+    int f() const {
+        return g_ + h_;
+    }
     //std::string actionname_; //!< How did we get to this node?
     //WorldState parentws_;    //!< Where did we come from?
-    Node* parent_;
+    //Node* parent_;
     Action* action_;
 
     Node();
@@ -37,7 +39,7 @@ struct Node {
 };
 
 inline std::ostream& operator<<(std::ostream& out, const Node& n) {
-    out << "Node { id:" << n.id_ << " parent:" << n.parent_id_ << " F:" << n.f_ << " G:" << n.g_ << " H:" << n.h_;
+    out << "Node { id:" << n.id_ << " parent:" << n.parent_id_ << " F:" << n.f() << " G:" << n.g_ << " H:" << n.h_;
     out << ", " << n.ws_ << "}";
     return out;
 }
