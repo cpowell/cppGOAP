@@ -14,7 +14,7 @@ void AStar::addToOpenList(Node&& n) {
     // insert maintaining sort order
     auto it = std::lower_bound(begin(open_),
                                end(open_),
-                               n);//4, CompareNodeByF());
+                               n);
     open_.emplace(it, std::move(n));
 }
 
@@ -62,33 +62,41 @@ void AStar::printClosedList() const {
 }
 
 void AStar::plan(std::vector<Action>& actions) {
-    int h = calculateHeuristic(start_, goal_);
-    Node n(start_, 0, h, h, nullptr);
-    open_.push_back(n);
+    Node n(start_, 0, calculateHeuristic(start_, goal_), 0, nullptr);
+
+    known_nodes_[n.id_] = n;
+    open_.push_back(std::move(n));
 
     int iters = 0;
     do {
         ++iters;
-        std::cout << "\nIteration " << iters << std::endl;
-        std::cout << "Open list\n";
-        printOpenList();
-        std::cout << "Closed list\n";
-        printClosedList();
+        std::cout << "\n-----------------------\n";
+        std::cout << "Iteration " << iters << std::endl;
 
         if (open_.size() == 0) {
             throw std::runtime_error("Could not find a path");
         }
 
-        // Look for lowest F score on the open list and switch it to closed
+        // Look for Node with the lowest-F-score on the open list and switch it to closed
         Node& latest(popAndClose());
+
+        std::cout << "Open list\n";
+        printOpenList();
+        std::cout << "Closed list\n";
+        printClosedList();
+
         std::cout << "\nLatest is " << latest << std::endl;
 
         if (goal_.metBy(latest.ws_)) {
             std::cout << "Found a path!\n";
+            do {
+                std::cout << latest.action_->name() << " yields " << latest.ws_ << std::endl;
+                latest = known_nodes_.at(latest.parent_id_);
+            } while (latest.parent_id_ != 0);
             break;
         }
 
-        for (const auto& action : actions) {
+        for (auto& action : actions) {
             // for each node REACHABLE from "me":
             if (action.eligibleFor(latest.ws_)) {
                 std::cout << "Hmm, " << action.name() << " could work...";
@@ -97,22 +105,21 @@ void AStar::plan(std::vector<Action>& actions) {
 
                 //   if closed, next
                 if (memberOfClosed(possibility)) {
+                    std::cout << "...but that one's closed out.\n";
                     continue;
                 }
 
                 //   if not on open list,
                 if (!memberOfOpen(possibility)) {
                     //     make me its parent
-                    Node found { possibility, latest.g_ + action.cost(), 1, 1, &latest };
-
                     //     record f,g,h for it
-                    found.g_ = latest.g_ + action.cost();
-                    found.h_ = calculateHeuristic(possibility, goal_);
-                    found.f_ = found.g_ + found.h_; // TODO couldn't this just be an f() method?
+                    Node found(possibility, (latest.g_ + action.cost()), (calculateHeuristic(possibility, goal_)), latest.id_, &action);
+                    known_nodes_[found.id_] = found;
 
-                    //     add to open list
-                    open_.push_back(found);
+                    //     add to open list, mainining the sort-by-F order there
+                    addToOpenList(std::move(found));
                 } else {
+                    //FIXME
                     //     if my path to it is better (G),
                     //       make me its parent
                     //       recalc F,G for it
@@ -121,6 +128,7 @@ void AStar::plan(std::vector<Action>& actions) {
             }
         }
     } while (true);
+
 }
 
 

@@ -13,6 +13,7 @@
 #include "WorldState.h"
 
 #include <ostream>
+#include <unordered_map>
 #include <vector>
 
 // To support Google Test for private members
@@ -25,14 +26,29 @@ private:
     WorldState start_;
     WorldState goal_;
 
+    std::unordered_map<int, Node> known_nodes_;
     std::vector<Node> open_;
     std::vector<Node> closed_;
 
-    int calculateHeuristic(const WorldState& now, const WorldState& goal) const;
-    void addToOpenList(Node&&);
-    Node& popAndClose();
     bool memberOfClosed(const WorldState& ws) const;
+
     bool memberOfOpen(const WorldState& ws) const;
+
+    /**
+     Pops the first Node from the 'open' list, moves it to the 'closed' list, and
+     returns a reference to this newly-closed Node.
+     @return a reference to the newly closed Node
+     @exception std::invalid_argument if the 'open' list has zero elements
+    */
+    Node& popAndClose();
+
+    /**
+     Moves the given Node (an rvalue reference) into the 'open' list.
+     @param an rvalue reference to a Node
+    */
+    void addToOpenList(Node&&);
+
+    int calculateHeuristic(const WorldState& now, const WorldState& goal) const;
 
 public:
     AStar();

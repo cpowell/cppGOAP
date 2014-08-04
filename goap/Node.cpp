@@ -1,11 +1,14 @@
 #include "Node.h"
 
+int Node::last_id_ = 0;
+
 Node::Node() : g_(0), h_(0), f_(0) {
-    //nop
+    id_ = ++last_id_;
 }
-Node::Node(WorldState& state, int g, int h, int f, Node* parent) :
-    ws_(state), g_(g), h_(h), f_(f), parent_(parent) {
-    //nop
+Node::Node(const WorldState state, int g, int h, int parent_id, Action* action) :
+    ws_(state), g_(g), h_(h), parent_id_(parent_id), action_(action) {
+    id_ = ++last_id_;
+    f_ = g_ + h_;
 }
 
 bool Node::operator<(const Node& other) {

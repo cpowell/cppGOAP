@@ -8,19 +8,24 @@
 
 #pragma once
 
+#include "Action.h"
 #include "WorldState.h"
 
 struct Node {
     WorldState ws_;          //!< The state of the world at this node.
+    static int last_id_;
+    int id_;
+    int parent_id_;
     int g_;                  //!< The cost so far.
     int h_;                  //!< The heuristic for remaining cost (don't overestimate!)
     int f_;                  //!< g+h combined.
     //std::string actionname_; //!< How did we get to this node?
     //WorldState parentws_;    //!< Where did we come from?
     Node* parent_;
+    Action* action_;
 
     Node();
-    Node(WorldState& state, int g, int h, int f, Node* parent);
+    Node(const WorldState state, int g, int h, int parent_id, Action* action);
 
     bool operator<(const Node& other);
 
@@ -32,8 +37,8 @@ struct Node {
 };
 
 inline std::ostream& operator<<(std::ostream& out, const Node& n) {
-    out << "Node { F:" << n.f_ << ", G:" << n.g_ << ", H:" << n.h_;
-    out << " " << n.ws_ << "}";
+    out << "Node { id:" << n.id_ << " parent:" << n.parent_id_ << " F:" << n.f_ << ", G:" << n.g_ << ", H:" << n.h_;
+    out << ", " << n.ws_ << "}";
     return out;
 }
 

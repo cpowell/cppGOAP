@@ -75,8 +75,8 @@ public:
 };
 
 inline std::ostream& operator<<(std::ostream& out, const WorldState& n) {
-    out << "WorldState { ";
-
+    out << "WorldState { 0x";
+    out << &n << " ";
     for (int i = 0; i < 5; ++i) {
         out << n.state_vars_[i] << ", ";
     }
