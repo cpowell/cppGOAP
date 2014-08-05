@@ -45,7 +45,7 @@ int main(void) {
     approach.setEffect(enemy_in_range, true);
     actions.push_back(approach);
 
-    Action approachClose("closeToKnifeRange", 2);
+    Action approachClose("closeToKnifeRange", 4);
     approachClose.setPrecondition(enemy_sighted, true);
     approachClose.setPrecondition(enemy_dead, false);
     approachClose.setPrecondition(enemy_in_close_range, false);
@@ -128,8 +128,8 @@ int main(void) {
     initialState.setVariable(enemy_in_close_range, false);
     initialState.setVariable(gun_loaded, false);
     initialState.setVariable(gun_drawn, false);
-    initialState.setVariable(knife_drawn, true);
-    initialState.setVariable(weapon_in_hand, true);
+    initialState.setVariable(knife_drawn, false);
+    initialState.setVariable(weapon_in_hand, false);
     initialState.setVariable(me_dead, false);
 
     AStar as;
