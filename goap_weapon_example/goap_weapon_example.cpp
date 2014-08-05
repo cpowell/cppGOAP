@@ -22,19 +22,24 @@ int main(void) {
     const std::string enemy_dead("isEnemyDead");
     const std::string enemy_in_range("isEnemyInGunRange");
     const std::string enemy_in_close_range("isEnemyInKnifeRange");
+    const std::string inventory_knife("hasKnife");
+    const std::string inventory_gun("hasGun");
     const std::string gun_drawn("isGunDrawn");
     const std::string gun_loaded("isGunLoaded");
+    const std::string have_ammo("hasGunAmmo");
     const std::string knife_drawn("isKnifeDrawn");
-    const std::string weapon_in_hand("isWeaponInHand");
+    const std::string weapon_in_hand("hasWeaponInHand");
     const std::string me_dead("isMeDead");
 
     Action scout("scoutStealthily", 5);
     scout.setPrecondition(enemy_sighted, false);
+    scout.setPrecondition(weapon_in_hand, true);
     scout.setEffect(enemy_sighted, true);
     actions.push_back(scout);
 
     Action run("scoutRunning", 15);
     run.setPrecondition(enemy_sighted, false);
+    scout.setPrecondition(weapon_in_hand, true);
     run.setEffect(enemy_sighted, true);
     actions.push_back(run);
 
@@ -42,6 +47,7 @@ int main(void) {
     approach.setPrecondition(enemy_sighted, true);
     approach.setPrecondition(enemy_dead, false);
     approach.setPrecondition(enemy_in_range, false);
+    approach.setPrecondition(gun_loaded, true);
     approach.setEffect(enemy_in_range, true);
     actions.push_back(approach);
 
@@ -53,12 +59,16 @@ int main(void) {
     actions.push_back(approachClose);
 
     Action load("loadGun", 2);
+    load.setPrecondition(have_ammo, true);
     load.setPrecondition(gun_loaded, false);
     load.setPrecondition(gun_drawn, true);
     load.setEffect(gun_loaded, true);
+    load.setEffect(have_ammo, false);
+
     actions.push_back(load);
 
     Action draw("drawGun", 1);
+    draw.setPrecondition(inventory_gun, true);
     draw.setPrecondition(weapon_in_hand, false);
     draw.setPrecondition(gun_drawn, false);
     draw.setEffect(gun_drawn, true);
@@ -73,9 +83,10 @@ int main(void) {
     actions.push_back(holster);
 
     Action drawKnife("drawKnife", 1);
+    drawKnife.setPrecondition(inventory_knife, true);
     drawKnife.setPrecondition(weapon_in_hand, false);
-    drawKnife.setPrecondition(gun_drawn, false);
-    drawKnife.setEffect(gun_drawn, true);
+    drawKnife.setPrecondition(knife_drawn, false);
+    drawKnife.setEffect(knife_drawn, true);
     drawKnife.setEffect(weapon_in_hand, true);
     actions.push_back(drawKnife);
 
@@ -132,9 +143,13 @@ int main(void) {
     initialState.setVariable(knife_drawn, false);
     initialState.setVariable(weapon_in_hand, false);
     initialState.setVariable(me_dead, false);
+    initialState.setVariable(have_ammo, true);
+    initialState.setVariable(inventory_knife, false);
+    initialState.setVariable(inventory_gun, true);
 
     AStar as;
     as.setStart(initialState);
+
     as.setGoal(goalStateWin);
     try {
         as.plan(actions);
@@ -143,13 +158,13 @@ int main(void) {
         std::cout << "Sorry, could not find a path!\n";
     }
 
-    as.setGoal(goalStateDraw);
-    try {
-        as.plan(actions);
-    }
-    catch (const std::exception& ex) {
-        std::cout << "Sorry, could not find a path!\n";
-    }
+//     as.setGoal(goalStateDraw);
+//     try {
+//         as.plan(actions);
+//     }
+//     catch (const std::exception& ex) {
+//         std::cout << "Sorry, could not find a path!\n";
+//     }
 
 
 
