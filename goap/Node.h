@@ -12,23 +12,28 @@
 #include "WorldState.h"
 
 struct Node {
-    WorldState ws_;          //!< The state of the world at this node.
-    static int last_id_;
-    int id_;
-    int parent_id_;
-    int g_;                  //!< The cost so far.
-    int h_;                  //!< The heuristic for remaining cost (don't overestimate!)
-    int f() const {
-        return g_ + h_;
-    }
-    //std::string actionname_; //!< How did we get to this node?
-    //WorldState parentws_;    //!< Where did we come from?
-    //Node* parent_;
-    Action* action_;
+    static int last_id_; // a static that lets us assign incrementing, unique IDs to nodes
+
+    WorldState ws_;      // The state of the world at this node.
+    int id_;             // the unique ID of this node
+    int parent_id_;      // the ID of this node's immediate predecessor
+    int g_;              // The A* cost from 'start' to 'here'
+    int h_;              // The estimated remaining cost to 'goal' form 'here'
+    Action* action_;     // The action that got us here (for replay purposes)
 
     Node();
     Node(const WorldState state, int g, int h, int parent_id, Action* action);
 
+    // F -- which is simply G+H -- is autocalculated
+    int f() const {
+        return g_ + h_;
+    }
+
+    /**
+     Less-than operator, needed for keeping Nodes sorted.
+     @param other the other node to compare against
+     @return true if this node is less than the other (using F)
+    */
     bool operator<(const Node& other);
 
     // A friend function of a class is defined outside that class' scope but it has the
@@ -43,17 +48,4 @@ inline std::ostream& operator<<(std::ostream& out, const Node& n) {
     out << ", " << n.ws_ << "}";
     return out;
 }
-
-/**
-This comparison function object satisfies the requirements of Compare. This lets
-us compare two Nodes by their F values. This is useful for
-using binary_search and lower_bound to search the node lists.
-https://stackoverflow.com/questions/18406479/binary-search-with-stdpair-using-a-custom-operator
-*/
-//struct CompareNodeByF {
-//    // Here is the function that will be called by std::sort:
-//    bool operator()(const Node& lhs, const Node& rhs) const {
-//        return lhs.f_ < rhs.f_;
-//    }
-//};
 

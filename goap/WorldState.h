@@ -13,12 +13,17 @@
 #include <unordered_map>
 
 struct WorldState {
-    float priority_;
-    std::string name_;
+    float priority_; // useful if this is a goal state, to distinguish from other possible goals
+    std::string name_; // the human-readable name of the state
     std::unordered_map<std::string, bool> vars_;
 
     WorldState();
 
+    /**
+     Set a world state variable, e.g. "gunLoaded" / true
+     @param name the name of the state variable
+     @param value the boolean value of the variable
+    */
     void setVariable(const std::string& name, const bool value);
 
     /**
@@ -38,6 +43,11 @@ struct WorldState {
     */
     int distanceTo(const WorldState& goal_state) const;
 
+    /**
+     Equality operator
+     @param other the other worldstate to compare to
+     @return true if they are equal, false if not
+    */
     bool operator==(const WorldState& other) const;
 
     // A friend function of a class is defined outside that class' scope but it has the

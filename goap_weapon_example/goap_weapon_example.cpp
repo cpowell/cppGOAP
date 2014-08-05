@@ -1,10 +1,9 @@
-// goap_weapon_example.cpp : Defines the entry point for the console application.
-//
-
-//int _tmain(int argc, _TCHAR* argv[])
-//{
-//  return 0;
-//}
+/**
+ * @brief an example befitting the AI of a shooter game
+ *
+ * @date August 2014
+ * @copyright (c) 2014 Prylis Inc. All rights reserved.
+ */
 
 #include "Action.h"
 #include "AStar.h"
@@ -17,7 +16,8 @@ int main(void) {
     std::cout << "Weapon example running...\n";
     std::vector<Action> actions;
 
-    // State strings
+    // Const strings for the various states are helpful to keep us from
+    // accidentally mistyping a state name.
     const std::string enemy_sighted("isEnemySighted");
     const std::string enemy_dead("isEnemyDead");
     const std::string enemy_in_range("isEnemyInGunRange");
@@ -31,6 +31,8 @@ int main(void) {
     const std::string weapon_in_hand("hasWeaponInHand");
     const std::string me_dead("isMeDead");
 
+    // Now establish all the possible actions for the action pool
+    // In this example we're providing the AI some different FPS actions
     Action scout("scoutStealthily", 5);
     scout.setPrecondition(enemy_sighted, false);
     scout.setPrecondition(weapon_in_hand, true);
@@ -64,7 +66,6 @@ int main(void) {
     load.setPrecondition(gun_drawn, true);
     load.setEffect(gun_loaded, true);
     load.setEffect(have_ammo, false);
-
     actions.push_back(load);
 
     Action draw("drawGun", 1);
@@ -122,6 +123,7 @@ int main(void) {
     destruct.setEffect(me_dead, true);
     actions.push_back(destruct);
 
+    // Now establish some goal states and an initial state
     WorldState goalStateDraw;
     goalStateDraw.setVariable(enemy_dead, true);
     goalStateDraw.setVariable(me_dead, true);
@@ -133,6 +135,8 @@ int main(void) {
     goalStateWin.setVariable(weapon_in_hand, true);
     goalStateWin.priority_ = 100;
 
+    // You can tweak these (e.g. have_ammo, the inventory items) to
+    // elicit different plans from the AI.
     WorldState initialState;
     initialState.setVariable(enemy_dead, false);
     initialState.setVariable(enemy_sighted, false);
@@ -144,17 +148,18 @@ int main(void) {
     initialState.setVariable(weapon_in_hand, false);
     initialState.setVariable(me_dead, false);
     initialState.setVariable(have_ammo, true);
-    initialState.setVariable(inventory_knife, false);
+    initialState.setVariable(inventory_knife, true);
     initialState.setVariable(inventory_gun, true);
 
+    // Fire up the A* planner
     AStar as;
     as.setStart(initialState);
-
     as.setGoal(goalStateWin);
+
     try {
         as.plan(actions);
     }
-    catch (const std::exception& ex) {
+    catch (const std::exception&) {
         std::cout << "Sorry, could not find a path!\n";
     }
 
