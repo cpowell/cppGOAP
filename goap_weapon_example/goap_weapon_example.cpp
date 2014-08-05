@@ -119,6 +119,7 @@ int main(void) {
     WorldState goalStateWin;
     goalStateWin.setVariable(enemy_dead, true);
     goalStateWin.setVariable(me_dead, false);
+    goalStateWin.setVariable(weapon_in_hand, true);
     goalStateWin.priority_ = 100;
 
     WorldState initialState;

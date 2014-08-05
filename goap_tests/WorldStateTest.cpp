@@ -94,3 +94,26 @@ TEST_F(WorldStateTest, difference_counts_only_those_that_matter) {
     goal.setVariable("var3", false);
     ASSERT_EQ(1, ws.distanceTo(goal));
 }
+
+TEST_F(WorldStateTest, distance_computes_correctly) {
+    ws.setVariable("var1", false);
+    ws.setVariable("var2", true);
+    ws.setVariable("var3", false);
+    ws.setVariable("var4", true);
+    ws.setVariable("var5", true);
+
+    WorldState goal;
+    goal.setVariable("var1", false);
+    goal.setVariable("var2", true);
+    goal.setVariable("var3", false);
+    goal.setVariable("var4", true);
+    goal.setVariable("var5", true);
+    ASSERT_EQ(0, ws.distanceTo(goal));
+
+    goal.setVariable("var1", true);
+    goal.setVariable("var2", false);
+    goal.setVariable("var3", true);
+    goal.setVariable("var4", false);
+    goal.setVariable("var5", false);
+    ASSERT_EQ(5, ws.distanceTo(goal));
+}

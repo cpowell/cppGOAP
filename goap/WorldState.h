@@ -15,7 +15,6 @@
 struct WorldState {
     float priority_;
     std::string name_;
-    //std::vector<WorldVariable> vars_;
     std::unordered_map<std::string, bool> vars_;
 
     WorldState();

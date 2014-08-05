@@ -44,11 +44,8 @@ public:
         effects_[key] = value;
     }
 
-    void setName(std::string&& name) {
-        name_ = name;
-    }
-
     int cost() const { return cost_; }
+
     std::string name() const { return name_; }
 };
 

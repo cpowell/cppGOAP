@@ -115,4 +115,3 @@ TEST_F(AStarTest, pop_and_close_moves_first_element_from_open_to_closed) {
     std::cout << "closed:\n";
     a.printClosedList();
 }
-
