@@ -7,7 +7,7 @@ AStar::AStar() {
 }
 
 int AStar::calculateHeuristic(const WorldState& now, const WorldState& goal) const {
-    return now.difference(goal);
+    return now.distanceTo(goal);
 }
 
 void AStar::addToOpenList(Node&& n) {
@@ -87,10 +87,10 @@ void AStar::plan(std::vector<Action>& actions) {
 //         std::cout << "Closed list\n";
 //         printClosedList();
 
-        std::cout << "\Current is " << current << std::endl;
+        std::cout << "\nCurrent is " << current << std::endl;
 
         // Is our current state the goal state? If so, we've found a path, yay.
-        if (goal_.metBy(current.ws_)) {
+        if (current.ws_.meetsGoal(goal_)) {
             std::cout << "Found a path!\n";
             do {
                 std::cout << current.action_->name() << " yields " << current.ws_ << std::endl;

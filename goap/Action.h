@@ -8,39 +8,43 @@
 
 #pragma once
 
-class WorldState;
+struct WorldState;
 
 #include <string>
+#include <unordered_map>
 
 class Action {
 private:
     std::string name_;
     int cost_;
 
-    bool preconditions_[5];
-    bool precondition_matters_[5];
+    std::unordered_map<std::string, bool> preconditions_;
 
-    bool effects_[5];
-    bool has_effect_[5];
+    std::unordered_map<std::string, bool> effects_;
 
 public:
     Action();
     Action(std::string name, int cost);
 
     bool eligibleFor(const WorldState& ws) const;
+
+    /**
+
+     @param
+     @return
+     @exception
+    */
     WorldState actOn(const WorldState& ws) const;
 
-    void setPrecondition(const int index, const bool value) {
-        preconditions_[index] = value; // TODO yeah this should be range checked
-        precondition_matters_[index] = true;
+    void setPrecondition(const std::string& key, const bool value) {
+        preconditions_[key] = value;
     }
 
-    void setEffect(const int index, const bool value) {
-        effects_[index] = value; // TODO range check
-        has_effect_[index] = true;
+    void setEffect(const std::string& key, const bool value) {
+        effects_[key] = value;
     }
 
-    void setName(const std::string name) {
+    void setName(std::string&& name) {
         name_ = name;
     }
 

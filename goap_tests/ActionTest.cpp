@@ -38,39 +38,35 @@ TEST_F(ActionTest, constructs_in_sane_state) {
     ASSERT_EQ(0, act.cost_);
     ASSERT_EQ("", act.name_);
 
-    ASSERT_FALSE(act.preconditions_[0]);
-    ASSERT_FALSE(act.precondition_matters_[0]);
-    ASSERT_FALSE(act.has_effect_[0]);
-    ASSERT_FALSE(act.effects_[0]);
 }
 
 TEST_F(ActionTest, elgibility_computes_correctly_when_eligible) {
-    act.setPrecondition(0, true);
+    act.setPrecondition("var1", true);
 
     WorldState ws;
-    ws.state_vars_[0] = true;
+    ws.setVariable("var1", true);
     ASSERT_TRUE(act.eligibleFor(ws));
 
-    ws.state_vars_[1] = true;
-    ws.state_vars_[2] = true;
+    ws.setVariable("var2", true);
+    ws.setVariable("var3", false);
     ASSERT_TRUE(act.eligibleFor(ws));
 }
 
 TEST_F(ActionTest, elgibility_computes_correctly_when_ineligible) {
-    act.setPrecondition(0, true);
+    act.setPrecondition("var1", true);
 
     WorldState ws;
-    ws.state_vars_[0] = false;
+    ws.setVariable("var1", false);
     ASSERT_FALSE(act.eligibleFor(ws));
 
-    ws.state_vars_[1] = true;
-    ws.state_vars_[2] = true;
+    ws.setVariable("var2", true);
+    ws.setVariable("var3", false);
     ASSERT_FALSE(act.eligibleFor(ws));
 }
 
 TEST_F(ActionTest, action_with_no_effects_has_no_effect) {
     WorldState ws;
-    ws.state_vars_[0] = true;
+    ws.setVariable("var1", true);
 
     WorldState ws_new = act.actOn(ws);
     ASSERT_EQ(ws, ws_new);
@@ -78,49 +74,49 @@ TEST_F(ActionTest, action_with_no_effects_has_no_effect) {
 
 TEST_F(ActionTest, action_takes_effect_where_applicable) {
     WorldState ws;
-    ws.state_vars_[0] = true;
-    ASSERT_EQ(true, ws.state_vars_[0]);
+    ws.setVariable("var1", true);
+    ASSERT_TRUE(ws.vars_["var1"]);
 
-    act.setPrecondition(0, true);
-    act.setEffect(0, false);
+    act.setPrecondition("var1", true);
+    act.setEffect("var1", false);
     WorldState ws_new = act.actOn(ws);
-    ASSERT_EQ(true, ws.state_vars_[0]);
-    ASSERT_EQ(false, ws_new.state_vars_[0]);
+    ASSERT_FALSE(ws_new.vars_["var1"]);
 }
 
 TEST_F(ActionTest, action_has_no_effect_where_inapplicable) {
     WorldState ws;
-    ws.state_vars_[0] = true;
-    ws.state_vars_[1] = true;
-    ws.state_vars_[2] = true;
-    ws.state_vars_[3] = true;
-    ws.state_vars_[4] = true;
+    ws.setVariable("var1", true);
+    ws.setVariable("var2", true);
+    ws.setVariable("var3", true);
+    ws.setVariable("var4", true);
+    ws.setVariable("var5", true);
 
-    act.setPrecondition(0, true);
-    act.setEffect(0, false);
+    act.setPrecondition("var1", true);
+    act.setEffect("var1", false);
     WorldState ws_new = act.actOn(ws);
-    ASSERT_FALSE(ws_new.state_vars_[0]);
-    ASSERT_TRUE(ws_new.state_vars_[1]);
-    ASSERT_TRUE(ws_new.state_vars_[2]);
-    ASSERT_TRUE(ws_new.state_vars_[3]);
-    ASSERT_TRUE(ws_new.state_vars_[4]);
+    ASSERT_FALSE(ws_new.vars_["var1"]);
+    ASSERT_TRUE(ws_new.vars_["var2"]);
+    ASSERT_TRUE(ws_new.vars_["var3"]);
+    ASSERT_TRUE(ws_new.vars_["var4"]);
+    ASSERT_TRUE(ws_new.vars_["var5"]);
 }
 
 TEST_F(ActionTest, action_has_no_effect_when_ineligible) {
     WorldState ws;
-    ws.state_vars_[0] = true;
-    ws.state_vars_[1] = true;
-    ws.state_vars_[2] = true;
-    ws.state_vars_[3] = true;
-    ws.state_vars_[4] = true;
+    ws.setVariable("var1", true);
+    ws.setVariable("var2", true);
+    ws.setVariable("var3", true);
+    ws.setVariable("var4", true);
+    ws.setVariable("var5", true);
 
-    act.setPrecondition(0, false);
-    act.setEffect(1, false);
+    act.setPrecondition("var1", false);
+    act.setEffect("var2", false);
 
     WorldState ws_new = act.actOn(ws);
-    ASSERT_TRUE(ws_new.state_vars_[0]);
-    ASSERT_TRUE(ws_new.state_vars_[1]);
-    ASSERT_TRUE(ws_new.state_vars_[2]);
-    ASSERT_TRUE(ws_new.state_vars_[3]);
-    ASSERT_TRUE(ws_new.state_vars_[4]);
+    ASSERT_TRUE(ws_new.vars_["var1"]);
+    ASSERT_TRUE(ws_new.vars_["var2"]);
+    ASSERT_TRUE(ws_new.vars_["var3"]);
+    ASSERT_TRUE(ws_new.vars_["var4"]);
+    ASSERT_TRUE(ws_new.vars_["var5"]);
+
 }

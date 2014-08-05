@@ -2,12 +2,6 @@
 #include "WorldState.h"
 
 Action::Action() : cost_(0) {
-    for (int i = 0; i < 5; ++i) {
-        preconditions_[i] = false;
-        precondition_matters_[i] = false;
-        effects_[i] = false;
-        has_effect_[i] = false;
-    }
 }
 
 Action::Action(std::string name, int cost) : Action() {
@@ -17,22 +11,24 @@ Action::Action(std::string name, int cost) : Action() {
 }
 
 bool Action::eligibleFor(const WorldState& ws) const {
-    for (int i = 0; i < 5; ++i) {
-        if (precondition_matters_[i] && ws.state_vars_[i] != preconditions_[i]) {
+    for (const auto& precond : preconditions_) {
+        try {
+            if (ws.vars_.at(precond.first) != precond.second) {
+                return false;
+            }
+        }
+        catch (const std::out_of_range&) {
             return false;
         }
     }
-
     return true;
 }
 
 WorldState Action::actOn(const WorldState& ws) const {
-    WorldState tmp(ws); // make a copy, which correctly deep-copies the array members
+    WorldState tmp(ws);
     if (eligibleFor(ws)) {
-        for (int i = 0; i < 5; ++i) {
-            if (has_effect_[i]) {
-                tmp.state_vars_[i] = effects_[i];
-            }
+        for (const auto& effect : effects_) {
+            tmp.setVariable(effect.first, effect.second);
         }
     }
     return tmp;

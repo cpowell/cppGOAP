@@ -34,7 +34,6 @@ protected:
 };
 
 TEST_F(NodeTest, constructs_in_sane_state) {
-    ASSERT_EQ(0, n.f_);
     ASSERT_EQ(0, n.g_);
     ASSERT_EQ(0, n.h_);
 
@@ -42,15 +41,15 @@ TEST_F(NodeTest, constructs_in_sane_state) {
 }
 
 TEST_F(NodeTest, compare_works_for_different_f_values) {
-    n.f_ = 5;
+    n.g_ = 5;
     Node n1;
-    n1.f_ = 10;
+    n1.g_ = 10;
     ASSERT_TRUE(n < n1);
 }
 
 TEST_F(NodeTest, compare_works_for_same_f_values) {
-    n.f_ = 5;
+    n.g_ = 5;
     Node n1;
-    n1.f_ = 5;
+    n1.g_ = 5;
     ASSERT_FALSE(n < n1);
 }

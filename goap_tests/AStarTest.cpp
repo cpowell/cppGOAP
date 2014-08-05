@@ -42,11 +42,11 @@ protected:
 
 TEST_F(AStarTest, add_to_open_list_preserves_sorting) {
     Node n1, n2, n3, n4, n5;
-    n1.f_ = 10;
-    n2.f_ = 5;
-    n3.f_ = 15;
-    n4.f_ = 0;
-    n5.f_ = 6;
+    n1.g_ = 10;
+    n2.g_ = 5;
+    n3.g_ = 15;
+    n4.g_ = 0;
+    n5.g_ = 6;
 
     a.addToOpenList(std::move(n1));
     a.addToOpenList(std::move(n2));
@@ -54,11 +54,11 @@ TEST_F(AStarTest, add_to_open_list_preserves_sorting) {
     a.addToOpenList(std::move(n4));
     a.addToOpenList(std::move(n5));
 
-    ASSERT_EQ(0, a.open_[0].f_);
-    ASSERT_EQ(5, a.open_[1].f_);
-    ASSERT_EQ(6, a.open_[2].f_);
-    ASSERT_EQ(10, a.open_[3].f_);
-    ASSERT_EQ(15, a.open_[4].f_);
+    ASSERT_EQ(0, a.open_[0].g_);
+    ASSERT_EQ(5, a.open_[1].g_);
+    ASSERT_EQ(6, a.open_[2].g_);
+    ASSERT_EQ(10, a.open_[3].g_);
+    ASSERT_EQ(15, a.open_[4].g_);
 }
 
 TEST_F(AStarTest, pop_and_close_for_empty_open_throws) {
@@ -68,11 +68,11 @@ TEST_F(AStarTest, pop_and_close_for_empty_open_throws) {
 
 TEST_F(AStarTest, pop_and_close_moves_first_element_from_open_to_closed) {
     Node n1, n2, n3, n4, n5;
-    n1.f_ = 10;
-    n2.f_ = 5;
-    n3.f_ = 4;
-    n4.f_ = 15;
-    n5.f_ = 7;
+    n1.g_ = 10;
+    n2.g_ = 5;
+    n3.g_ = 4;
+    n4.g_ = 15;
+    n5.g_ = 7;
 
     a.addToOpenList(std::move(n1));
     a.addToOpenList(std::move(n2));
@@ -80,11 +80,11 @@ TEST_F(AStarTest, pop_and_close_moves_first_element_from_open_to_closed) {
     a.addToOpenList(std::move(n4));
     a.addToOpenList(std::move(n5));
 
-    ASSERT_EQ(4, a.open_[0].f_);
-    ASSERT_EQ(5, a.open_[1].f_);
-    ASSERT_EQ(7, a.open_[2].f_);
-    ASSERT_EQ(10, a.open_[3].f_);
-    ASSERT_EQ(15, a.open_[4].f_);
+    ASSERT_EQ(4, a.open_[0].g_);
+    ASSERT_EQ(5, a.open_[1].g_);
+    ASSERT_EQ(7, a.open_[2].g_);
+    ASSERT_EQ(10, a.open_[3].g_);
+    ASSERT_EQ(15, a.open_[4].g_);
 
     ASSERT_EQ(5, a.open_.size());
     ASSERT_EQ(0, a.closed_.size());
@@ -92,23 +92,23 @@ TEST_F(AStarTest, pop_and_close_moves_first_element_from_open_to_closed) {
     a.popAndClose();
     ASSERT_EQ(4, a.open_.size());
     ASSERT_EQ(1, a.closed_.size());
-    ASSERT_EQ(5, a.open_[0].f_);
-    ASSERT_EQ(7, a.open_[1].f_);
-    ASSERT_EQ(10, a.open_[2].f_);
-    ASSERT_EQ(15, a.open_[3].f_);
+    ASSERT_EQ(5, a.open_[0].g_);
+    ASSERT_EQ(7, a.open_[1].g_);
+    ASSERT_EQ(10, a.open_[2].g_);
+    ASSERT_EQ(15, a.open_[3].g_);
 
     a.popAndClose();
     ASSERT_EQ(3, a.open_.size());
     ASSERT_EQ(2, a.closed_.size());
-    ASSERT_EQ(7, a.open_[0].f_);
-    ASSERT_EQ(10, a.open_[1].f_);
-    ASSERT_EQ(15, a.open_[2].f_);
+    ASSERT_EQ(7, a.open_[0].g_);
+    ASSERT_EQ(10, a.open_[1].g_);
+    ASSERT_EQ(15, a.open_[2].g_);
 
     a.popAndClose();
     ASSERT_EQ(2, a.open_.size());
     ASSERT_EQ(3, a.closed_.size());
-    ASSERT_EQ(10, a.open_[0].f_);
-    ASSERT_EQ(15, a.open_[1].f_);
+    ASSERT_EQ(10, a.open_[0].g_);
+    ASSERT_EQ(15, a.open_[1].g_);
 
     std::cout << "open:\n";
     a.printOpenList();

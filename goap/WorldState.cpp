@@ -1,48 +1,53 @@
 #include "WorldState.h"
 
 WorldState::WorldState() : priority_(0) {
-    for (int i = 0; i < 5; ++i) {
-        state_vars_[i] = false;
-        var_matters_[i] = true;
-    }
+
 }
+
+void WorldState::setVariable(const std::string& name, const bool value) {
+    vars_[name] = value;
+}
+
 
 bool WorldState::operator==(const WorldState& other) const {
-    for (int i = 0; i < 5; ++i) {
-        if (state_vars_[i] != other.state_vars_[i]) {
+    return (vars_ == other.vars_);
+}
+
+bool WorldState::meetsGoal(const WorldState& goal_state) const {
+//     for (const auto& goal_var : goal_state.vars_) {
+//         auto itr = std::find(begin(vars_), end(vars_), goal_var);
+//         if (itr == end(vars_) || itr->value_ != goal_var.value_) {
+//             return false;
+//         }
+//     }
+//
+//     // made it this far? must match
+//     return true;
+    for (const auto& kv : goal_state.vars_) {
+        try {
+            if (vars_.at(kv.first) != kv.second) {
+                return false;
+            }
+        }
+        catch (const std::out_of_range&) {
             return false;
         }
     }
-
     return true;
 }
 
-
-bool WorldState::valid() const {
-    for (int i = 0; i < 5; ++i) {
-        if (var_matters_[i]) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
-bool WorldState::metBy(const WorldState& other) const {
-    for (int i = 0; i < 5; ++i) {
-        if (var_matters_[i] && state_vars_[i] != other.state_vars_[i]) {
-            return false;
-        }
-    }
-
-    return true;
-}
-
-int WorldState::difference(const WorldState& other) const {
+int WorldState::distanceTo(const WorldState& goal_state) const {
     int result = 0;
 
-    for (int i = 0; i < 5; ++i) {
-        if (other.var_matters_[i] && state_vars_[i] != other.state_vars_[i]) {
+//     for (const auto& goal_var : goal_state.vars_) {
+//         auto itr = std::find(begin(vars_), end(vars_), goal_var);
+//         if (itr == end(vars_) || itr->value_ != goal_var.value_) {
+//             ++result;
+//         }
+//     }
+    for (const auto& kv : goal_state.vars_) {
+        auto itr = vars_.find(kv.first);
+        if (itr == end(vars_) || itr->second != kv.second) {
             ++result;
         }
     }
