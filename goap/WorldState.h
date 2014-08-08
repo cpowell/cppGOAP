@@ -10,21 +10,21 @@
 
 #include <ostream>
 #include <string>
-#include <unordered_map>
+#include <map>
 
 struct WorldState {
     float priority_; // useful if this is a goal state, to distinguish from other possible goals
     std::string name_; // the human-readable name of the state
-    std::unordered_map<std::string, bool> vars_;
+    std::map<int, bool> vars_; // the variables that in aggregate describe a worldstate
 
     WorldState();
 
     /**
      Set a world state variable, e.g. "gunLoaded" / true
-     @param name the name of the state variable
+     @param var_id the unique ID of the state variable
      @param value the boolean value of the variable
     */
-    void setVariable(const std::string& name, const bool value);
+    void setVariable(const int var_id, const bool value);
 
     /**
      Useful if this state is a goal state. It asks, does state 'other'
@@ -60,7 +60,7 @@ struct WorldState {
 inline std::ostream& operator<<(std::ostream& out, const WorldState& n) {
     out << "WorldState { ";
     for (const auto& kv : n.vars_) {
-        out << kv.first << ":" << kv.second << " | ";
+        out << kv.second << " ";
     }
     out << "}";
     return out;

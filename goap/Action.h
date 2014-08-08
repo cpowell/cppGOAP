@@ -20,10 +20,10 @@ private:
 
     // Preconditions are things that must be satisfied before this
     // action can be taken. Only preconditions that "matter" are here.
-    std::unordered_map<std::string, bool> preconditions_;
+    std::unordered_map<int, bool> preconditions_;
 
     // Effects are things that happen when this action takes place.
-    std::unordered_map<std::string, bool> effects_;
+    std::unordered_map<int, bool> effects_;
 
 public:
     Action();
@@ -49,7 +49,7 @@ public:
      @param key the name of the precondition
      @param value the value the precondition must hold
     */
-    void setPrecondition(const std::string& key, const bool value) {
+    void setPrecondition(const int key, const bool value) {
         preconditions_[key] = value;
     }
 
@@ -58,7 +58,7 @@ public:
      @param key the name of the effect
      @param value the value that will result
     */
-    void setEffect(const std::string& key, const bool value) {
+    void setEffect(const int key, const bool value) {
         effects_[key] = value;
     }
 

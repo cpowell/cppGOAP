@@ -4,8 +4,8 @@ WorldState::WorldState() : priority_(0) {
 
 }
 
-void WorldState::setVariable(const std::string& name, const bool value) {
-    vars_[name] = value;
+void WorldState::setVariable(const int var_id, const bool value) {
+    vars_[var_id] = value;
 }
 
 
@@ -14,15 +14,6 @@ bool WorldState::operator==(const WorldState& other) const {
 }
 
 bool WorldState::meetsGoal(const WorldState& goal_state) const {
-//     for (const auto& goal_var : goal_state.vars_) {
-//         auto itr = std::find(begin(vars_), end(vars_), goal_var);
-//         if (itr == end(vars_) || itr->value_ != goal_var.value_) {
-//             return false;
-//         }
-//     }
-//
-//     // made it this far? must match
-//     return true;
     for (const auto& kv : goal_state.vars_) {
         try {
             if (vars_.at(kv.first) != kv.second) {
@@ -39,12 +30,6 @@ bool WorldState::meetsGoal(const WorldState& goal_state) const {
 int WorldState::distanceTo(const WorldState& goal_state) const {
     int result = 0;
 
-//     for (const auto& goal_var : goal_state.vars_) {
-//         auto itr = std::find(begin(vars_), end(vars_), goal_var);
-//         if (itr == end(vars_) || itr->value_ != goal_var.value_) {
-//             ++result;
-//         }
-//     }
     for (const auto& kv : goal_state.vars_) {
         auto itr = vars_.find(kv.first);
         if (itr == end(vars_) || itr->second != kv.second) {

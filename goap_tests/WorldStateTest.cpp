@@ -40,80 +40,80 @@ TEST_F(WorldStateTest, constructs_in_sane_state) {
 
 TEST_F(WorldStateTest, goal_meeting_works_for_exact_match) {
     WorldState dead_enemy_goal;
-    dead_enemy_goal.setVariable("isEnemyDead", true);
+    dead_enemy_goal.setVariable(0, true);
 
-    ws.setVariable("isEnemyDead", true);
+    ws.setVariable(0, true);
     ASSERT_TRUE(ws.meetsGoal(dead_enemy_goal));
 }
 
 TEST_F(WorldStateTest, goal_not_met_for_nonmatch) {
     WorldState dead_enemy_goal;
-    dead_enemy_goal.setVariable("isEnemyDead", true);
+    dead_enemy_goal.setVariable(0, true);
 
-    ws.setVariable("isEnemyDead", false);
+    ws.setVariable(0, false);
     ASSERT_FALSE(ws.meetsGoal(dead_enemy_goal));
 }
 
 TEST_F(WorldStateTest, no_difference_when_all_false) {
-    ws.setVariable("var1", false);
-    ws.setVariable("var2", false);
-    ws.setVariable("var3", false);
+    ws.setVariable(1, false);
+    ws.setVariable(2, false);
+    ws.setVariable(3, false);
 
     WorldState goal;
-    goal.setVariable("var1", false);
-    goal.setVariable("var2", false);
-    goal.setVariable("var3", false);
+    goal.setVariable(1, false);
+    goal.setVariable(2, false);
+    goal.setVariable(3, false);
 
     ASSERT_EQ(0, ws.distanceTo(goal));
 }
 
 TEST_F(WorldStateTest, no_difference_when_nothing_matters) {
-    ws.setVariable("var1", false);
-    ws.setVariable("var2", false);
-    ws.setVariable("var3", false);
+    ws.setVariable(1, false);
+    ws.setVariable(2, false);
+    ws.setVariable(3, false);
 
     WorldState goal;
     ASSERT_EQ(0, ws.distanceTo(goal));
 }
 
 TEST_F(WorldStateTest, difference_counts_only_those_that_matter) {
-    ws.setVariable("var1", false);
-    ws.setVariable("var2", true);
-    ws.setVariable("var3", false);
-    ws.setVariable("var4", true);
-    ws.setVariable("var5", true);
+    ws.setVariable(1, false);
+    ws.setVariable(2, true);
+    ws.setVariable(3, false);
+    ws.setVariable(4, true);
+    ws.setVariable(5, true);
 
     WorldState goal;
-    goal.setVariable("var1", false);
+    goal.setVariable(1, false);
 
     ASSERT_EQ(0, ws.distanceTo(goal));
 
-    goal.setVariable("var2", false);
+    goal.setVariable(2, false);
     ASSERT_EQ(1, ws.distanceTo(goal));
 
-    goal.setVariable("var3", false);
+    goal.setVariable(3, false);
     ASSERT_EQ(1, ws.distanceTo(goal));
 }
 
 TEST_F(WorldStateTest, distance_computes_correctly) {
-    ws.setVariable("var1", false);
-    ws.setVariable("var2", true);
-    ws.setVariable("var3", false);
-    ws.setVariable("var4", true);
-    ws.setVariable("var5", true);
+    ws.setVariable(1, false);
+    ws.setVariable(2, true);
+    ws.setVariable(3, false);
+    ws.setVariable(4, true);
+    ws.setVariable(5, true);
 
     WorldState goal;
-    goal.setVariable("var1", false);
-    goal.setVariable("var2", true);
-    goal.setVariable("var3", false);
-    goal.setVariable("var4", true);
-    goal.setVariable("var5", true);
+    goal.setVariable(1, false);
+    goal.setVariable(2, true);
+    goal.setVariable(3, false);
+    goal.setVariable(4, true);
+    goal.setVariable(5, true);
     ASSERT_EQ(0, ws.distanceTo(goal));
 
-    goal.setVariable("var1", true);
-    goal.setVariable("var2", false);
-    goal.setVariable("var3", true);
-    goal.setVariable("var4", false);
-    goal.setVariable("var5", false);
+    goal.setVariable(1, true);
+    goal.setVariable(2, false);
+    goal.setVariable(3, true);
+    goal.setVariable(4, false);
+    goal.setVariable(5, false);
     ASSERT_EQ(5, ws.distanceTo(goal));
 }

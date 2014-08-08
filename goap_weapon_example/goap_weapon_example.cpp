@@ -16,20 +16,20 @@ int main(void) {
     std::cout << "Weapon example running...\n";
     std::vector<Action> actions;
 
-    // Const strings for the various states are helpful to keep us from
+    // Constants for the various states are helpful to keep us from
     // accidentally mistyping a state name.
-    const std::string enemy_sighted("isEnemySighted");
-    const std::string enemy_dead("isEnemyDead");
-    const std::string enemy_in_range("isEnemyInGunRange");
-    const std::string enemy_in_close_range("isEnemyInKnifeRange");
-    const std::string inventory_knife("hasKnife");
-    const std::string inventory_gun("hasGun");
-    const std::string gun_drawn("isGunDrawn");
-    const std::string gun_loaded("isGunLoaded");
-    const std::string have_ammo("hasGunAmmo");
-    const std::string knife_drawn("isKnifeDrawn");
-    const std::string weapon_in_hand("hasWeaponInHand");
-    const std::string me_dead("isMeDead");
+    const int enemy_sighted = 1;
+    const int enemy_dead = 2;
+    const int enemy_in_range = 3;
+    const int enemy_in_close_range = 4;
+    const int inventory_knife = 5;
+    const int inventory_gun = 6;
+    const int gun_drawn = 7;;
+    const int gun_loaded = 8;
+    const int have_ammo = 9;
+    const int knife_drawn = 10;
+    const int weapon_in_hand = 11;
+    const int me_dead = 12;
 
     // Now establish all the possible actions for the action pool
     // In this example we're providing the AI some different FPS actions
