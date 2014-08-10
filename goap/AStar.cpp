@@ -3,14 +3,14 @@
 #include <algorithm>
 #include <iostream>
 
-AStar::AStar() {
+goap::AStar::AStar() {
 }
 
-int AStar::calculateHeuristic(const WorldState& now, const WorldState& goal) const {
+int goap::AStar::calculateHeuristic(const WorldState& now, const WorldState& goal) const {
     return now.distanceTo(goal);
 }
 
-void AStar::addToOpenList(Node&& n) {
+void goap::AStar::addToOpenList(Node&& n) {
     // insert maintaining sort order
     auto it = std::lower_bound(begin(open_),
                                end(open_),
@@ -18,7 +18,7 @@ void AStar::addToOpenList(Node&& n) {
     open_.emplace(it, std::move(n));
 }
 
-Node& AStar::popAndClose() {
+goap::Node& goap::AStar::popAndClose() {
     if (open_.size() == 0) {
         throw std::invalid_argument("You cannot call popAndClose on an empty open-list!");
     }
@@ -29,7 +29,7 @@ Node& AStar::popAndClose() {
     return closed_.back();
 }
 
-bool AStar::memberOfClosed(const WorldState& ws) const {
+bool goap::AStar::memberOfClosed(const WorldState& ws) const {
     for (const auto& node : closed_) {
         if (node.ws_ == ws) {
             return true;
@@ -38,7 +38,7 @@ bool AStar::memberOfClosed(const WorldState& ws) const {
     return false;
 }
 
-Node* AStar::memberOfOpen(const WorldState& ws) {
+goap::Node* goap::AStar::memberOfOpen(const WorldState& ws) {
     for (auto& node : open_) {
         if (node.ws_ == ws) {
             return &node;
@@ -47,21 +47,21 @@ Node* AStar::memberOfOpen(const WorldState& ws) {
     return nullptr;
 }
 
-void AStar::printOpenList() const {
+void goap::AStar::printOpenList() const {
 
     for (const auto& n : open_) {
         std::cout << n << std::endl;
     }
 }
 
-void AStar::printClosedList() const {
+void goap::AStar::printClosedList() const {
 
     for (const auto& n : closed_) {
         std::cout << n << std::endl;
     }
 }
 
-void AStar::plan(std::vector<Action>& actions) {
+void goap::AStar::plan(std::vector<Action>& actions) {
     Node n(start_, 0, calculateHeuristic(start_, goal_), 0, nullptr);
 
     known_nodes_[n.id_] = n;

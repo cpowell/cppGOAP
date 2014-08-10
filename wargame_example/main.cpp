@@ -12,6 +12,8 @@
 #include <iostream>
 #include <vector>
 
+using namespace goap;
+
 int main(void) {
     std::cout << "Wargame example running...\n";
     std::vector<Action> actions;
