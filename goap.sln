@@ -7,7 +7,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "goap", "goap\goap.vcxproj",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "goap_tests", "goap_tests\goap_tests.vcxproj", "{AAE56CA4-9EAB-4EE0-A1C9-8B49055AFE30}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "goap_weapon_example", "goap_weapon_example\goap_weapon_example.vcxproj", "{3606BA2B-48C5-4156-96B8-2164CA7A23A3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "weapon_example", "weapon_example\weapon_example.vcxproj", "{3606BA2B-48C5-4156-96B8-2164CA7A23A3}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A4A02A53-4756-4C94-B949-86AEDF972A86} = {A4A02A53-4756-4C94-B949-86AEDF972A86}
 	EndProjectSection

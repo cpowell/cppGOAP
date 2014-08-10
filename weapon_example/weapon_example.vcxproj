@@ -14,6 +14,7 @@
     <ProjectGuid>{3606BA2B-48C5-4156-96B8-2164CA7A23A3}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>goap_weapon_example</RootNamespace>
+    <ProjectName>weapon_example</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -77,7 +78,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="goap_weapon_example.cpp">
+    <ClCompile Include="main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
   </ItemGroup>

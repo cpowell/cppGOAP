@@ -1,5 +1,5 @@
 /**
-* @brief an example befitting the AI of a shooter game
+* @brief an example befitting the AI of a naval wargame
 *
 * @date August 2014
 * @copyright (c) 2014 Prylis Inc. All rights reserved.
