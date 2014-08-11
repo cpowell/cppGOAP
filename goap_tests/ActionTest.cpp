@@ -4,6 +4,8 @@
 #include "Action.h"
 #include "WorldState.h"
 
+using namespace goap;
+
 // The fixture for testing class SimVar.
 class ActionTest : public ::testing::Test {
 protected:
