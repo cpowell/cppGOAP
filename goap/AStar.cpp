@@ -73,7 +73,7 @@ std::vector<goap::Action> goap::AStar::plan(WorldState& start, WorldState& goal,
 
         // If there's nothing left to evaluate, then we have no possible path left
         if (open_.size() == 0) {
-            throw std::runtime_error("Could not find a path");
+            throw std::runtime_error("A* planner could not find a path from start to goal");
         }
 
         // Look for Node with the lowest-F-score on the open list. Switch it to closed,
