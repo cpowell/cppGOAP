@@ -3,6 +3,8 @@
 #define private public
 #include "Node.h"
 
+using namespace goap;
+
 // The fixture for testing class SimVar.
 class NodeTest : public ::testing::Test {
 protected:

@@ -3,14 +3,14 @@
 #include <algorithm>
 #include <iostream>
 
-AStar::AStar() {
+goap::AStar::AStar() {
 }
 
-int AStar::calculateHeuristic(const WorldState& now, const WorldState& goal) const {
+int goap::AStar::calculateHeuristic(const WorldState& now, const WorldState& goal) const {
     return now.distanceTo(goal);
 }
 
-void AStar::addToOpenList(Node&& n) {
+void goap::AStar::addToOpenList(Node&& n) {
     // insert maintaining sort order
     auto it = std::lower_bound(begin(open_),
                                end(open_),
@@ -18,7 +18,7 @@ void AStar::addToOpenList(Node&& n) {
     open_.emplace(it, std::move(n));
 }
 
-Node& AStar::popAndClose() {
+goap::Node& goap::AStar::popAndClose() {
     if (open_.size() == 0) {
         throw std::invalid_argument("You cannot call popAndClose on an empty open-list!");
     }
@@ -29,7 +29,7 @@ Node& AStar::popAndClose() {
     return closed_.back();
 }
 
-bool AStar::memberOfClosed(const WorldState& ws) const {
+bool goap::AStar::memberOfClosed(const WorldState& ws) const {
     for (const auto& node : closed_) {
         if (node.ws_ == ws) {
             return true;
@@ -38,7 +38,7 @@ bool AStar::memberOfClosed(const WorldState& ws) const {
     return false;
 }
 
-Node* AStar::memberOfOpen(const WorldState& ws) {
+goap::Node* goap::AStar::memberOfOpen(const WorldState& ws) {
     for (auto& node : open_) {
         if (node.ws_ == ws) {
             return &node;
@@ -47,22 +47,20 @@ Node* AStar::memberOfOpen(const WorldState& ws) {
     return nullptr;
 }
 
-void AStar::printOpenList() const {
-
+void goap::AStar::printOpenList() const {
     for (const auto& n : open_) {
         std::cout << n << std::endl;
     }
 }
 
-void AStar::printClosedList() const {
-
+void goap::AStar::printClosedList() const {
     for (const auto& n : closed_) {
         std::cout << n << std::endl;
     }
 }
 
-void AStar::plan(std::vector<Action>& actions) {
-    Node n(start_, 0, calculateHeuristic(start_, goal_), 0, nullptr);
+void goap::AStar::plan(WorldState& start, WorldState& goal, std::vector<Action>& actions) {
+    Node n(start, 0, calculateHeuristic(start, goal), 0, nullptr);
 
     known_nodes_[n.id_] = n;
     open_.push_back(std::move(n));
@@ -90,7 +88,7 @@ void AStar::plan(std::vector<Action>& actions) {
         /*        std::cout << "\nCurrent is " << current << std::endl;*/
 
         // Is our current state the goal state? If so, we've found a path, yay.
-        if (current.ws_.meetsGoal(goal_)) {
+        if (current.ws_.meetsGoal(goal)) {
             std::cout << "Found a path!\n";
             do {
                 std::cout << current.action_->name() << " yields " << current.ws_ << std::endl;
@@ -117,7 +115,7 @@ void AStar::plan(std::vector<Action>& actions) {
                     //   if not on open list,
                     //     make me its parent
                     //     record f,g,h for it
-                    Node found(possibility, (current.g_ + action.cost()), (calculateHeuristic(possibility, goal_)), current.id_, &action);
+                    Node found(possibility, (current.g_ + action.cost()), (calculateHeuristic(possibility, goal)), current.id_, &action);
                     known_nodes_[found.id_] = found;
 
                     //     add to open list, mainining the sort-by-F order there
@@ -128,7 +126,7 @@ void AStar::plan(std::vector<Action>& actions) {
                         //std::cout << "My path is better\n";
                         needle->parent_id_ = current.id_;                     //       make me its parent
                         needle->g_ = current.g_ + action.cost();              //       recalc F,G for it
-                        needle->h_ = calculateHeuristic(possibility, goal_);
+                        needle->h_ = calculateHeuristic(possibility, goal);
                         std::sort(open_.begin(), open_.end());                //       resort open list to account for new F
                     }
                 }

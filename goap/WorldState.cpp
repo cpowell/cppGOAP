@@ -1,19 +1,19 @@
 #include "WorldState.h"
 
-WorldState::WorldState() : priority_(0) {
+goap::WorldState::WorldState() : priority_(0) {
 
 }
 
-void WorldState::setVariable(const int var_id, const bool value) {
+void goap::WorldState::setVariable(const int var_id, const bool value) {
     vars_[var_id] = value;
 }
 
 
-bool WorldState::operator==(const WorldState& other) const {
+bool goap::WorldState::operator==(const WorldState& other) const {
     return (vars_ == other.vars_);
 }
 
-bool WorldState::meetsGoal(const WorldState& goal_state) const {
+bool goap::WorldState::meetsGoal(const WorldState& goal_state) const {
     for (const auto& kv : goal_state.vars_) {
         try {
             if (vars_.at(kv.first) != kv.second) {
@@ -27,7 +27,7 @@ bool WorldState::meetsGoal(const WorldState& goal_state) const {
     return true;
 }
 
-int WorldState::distanceTo(const WorldState& goal_state) const {
+int goap::WorldState::distanceTo(const WorldState& goal_state) const {
     int result = 0;
 
     for (const auto& kv : goal_state.vars_) {

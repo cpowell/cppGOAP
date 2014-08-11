@@ -3,6 +3,8 @@
 #define private public
 #include "WorldState.h"
 
+using namespace goap;
+
 // The fixture for testing class SimVar.
 class WorldStateTest : public ::testing::Test {
 protected:
