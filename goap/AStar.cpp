@@ -59,11 +59,11 @@ void goap::AStar::printClosedList() const {
     }
 }
 
-void goap::AStar::plan(WorldState& start, WorldState& goal, std::vector<Action>& actions) {
-    Node n(start, 0, calculateHeuristic(start, goal), 0, nullptr);
+std::vector<goap::Action> goap::AStar::plan(WorldState& start, WorldState& goal, std::vector<Action>& actions) {
+    Node starting_node(start, 0, calculateHeuristic(start, goal), 0, nullptr);
 
-    known_nodes_[n.id_] = n;
-    open_.push_back(std::move(n));
+    known_nodes_[starting_node.id_] = starting_node;
+    open_.push_back(std::move(starting_node));
 
     int iters = 0;
     do {
@@ -80,29 +80,27 @@ void goap::AStar::plan(WorldState& start, WorldState& goal, std::vector<Action>&
         // and hang onto it -- this is our latest node.
         Node& current(popAndClose());
 
-//         std::cout << "Open list\n";
-//         printOpenList();
-//         std::cout << "Closed list\n";
-//         printClosedList();
-
-        /*        std::cout << "\nCurrent is " << current << std::endl;*/
+        //std::cout << "Open list\n";
+        //printOpenList();
+        //std::cout << "Closed list\n";
+        //printClosedList();
+        //std::cout << "\nCurrent is " << current << std::endl;
 
         // Is our current state the goal state? If so, we've found a path, yay.
         if (current.ws_.meetsGoal(goal)) {
-            std::cout << "Found a path!\n";
+            std::vector<Action> the_plan;
             do {
-                std::cout << current.action_->name() << " yields " << current.ws_ << std::endl;
+                the_plan.push_back(*current.action_);
                 current = known_nodes_.at(current.parent_id_);
             } while (current.parent_id_ != 0);
-            break; // and we're done
+            return the_plan;
         }
 
         for (auto& action : actions) {
             // for each node REACHABLE from "me":
             if (action.eligibleFor(current.ws_)) {
-                //std::cout << "Hmm, " << action.name() << " could work...";
                 WorldState possibility = action.actOn(current.ws_);
-                //std::cout << "resulting in " << possibility << std::endl;
+                //std::cout << "Hmm, " << action.name() << " could work..." << "resulting in " << possibility << std::endl;
 
                 //   if closed, next
                 if (memberOfClosed(possibility)) {
@@ -115,7 +113,7 @@ void goap::AStar::plan(WorldState& start, WorldState& goal, std::vector<Action>&
                     //   if not on open list,
                     //     make me its parent
                     //     record f,g,h for it
-                    Node found(possibility, (current.g_ + action.cost()), (calculateHeuristic(possibility, goal)), current.id_, &action);
+                    Node found(possibility, current.g_ + action.cost(), calculateHeuristic(possibility, goal), current.id_, &action);
                     known_nodes_[found.id_] = found;
 
                     //     add to open list, mainining the sort-by-F order there

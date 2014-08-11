@@ -83,14 +83,15 @@ namespace goap {
         void printClosedList() const;
 
         /**
-         Actually attempt to formulate a plan from start to goal, given a pool of
+         Actually attempt to formulate a plan to get from start to goal, given a pool of
          available actions.
          @param start the starting worldstate
          @param goal the goal worldstate
          @param actions the available action pool
-         @exception std::runtime_error if no plan could be made with the available actions & goal
+         @return a vector of Actions in REVERSE ORDER - use a reverse_iterator on this to get stepwise-order
+         @exception std::runtime_error if no plan could be made with the available actions and states
          */
-        void plan(WorldState& start, WorldState& goal, std::vector<Action>& actions);
+        std::vector<Action> plan(WorldState& start, WorldState& goal, std::vector<Action>& actions);
 
         TEST_FRIENDS;
     };

@@ -67,7 +67,11 @@ int main(void) {
     // Fire up the A* planner
     AStar as;
     try {
-        as.plan(initial_state, goal_target_dead, actions);
+        std::vector<Action> the_plan = as.plan(initial_state, goal_target_dead, actions);
+        std::cout << "Found a path!\n";
+        for (std::vector<Action>::reverse_iterator rit = the_plan.rbegin(); rit != the_plan.rend(); ++rit) {
+            std::cout << rit->name() << std::endl;
+        }
     }
     catch (const std::exception&) {
         std::cout << "Sorry, could not find a path!\n";
