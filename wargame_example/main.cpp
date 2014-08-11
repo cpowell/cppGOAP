@@ -66,11 +66,8 @@ int main(void) {
 
     // Fire up the A* planner
     AStar as;
-    as.setStart(initial_state);
-    as.setGoal(goal_target_dead);
-
     try {
-        as.plan(actions);
+        as.plan(initial_state, goal_target_dead, actions);
     }
     catch (const std::exception&) {
         std::cout << "Sorry, could not find a path!\n";

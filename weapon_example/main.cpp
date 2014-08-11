@@ -126,40 +126,32 @@ int main(void) {
     actions.push_back(destruct);
 
     // Now establish some goal states and an initial state
-    WorldState goalStateDraw;
-    goalStateDraw.setVariable(enemy_dead, true);
-    goalStateDraw.setVariable(me_dead, true);
-    goalStateDraw.priority_ = 50;
-
-    WorldState goalStateWin;
-    goalStateWin.setVariable(enemy_dead, true);
-    goalStateWin.setVariable(me_dead, false);
-    goalStateWin.setVariable(weapon_in_hand, true);
-    goalStateWin.priority_ = 100;
+    WorldState goal_win;
+    goal_win.setVariable(enemy_dead, true);
+    goal_win.setVariable(me_dead, false);
+    goal_win.setVariable(weapon_in_hand, true);
+    goal_win.priority_ = 100;
 
     // You can tweak these (e.g. have_ammo, the inventory items) to
     // elicit different plans from the AI.
-    WorldState initialState;
-    initialState.setVariable(enemy_dead, false);
-    initialState.setVariable(enemy_sighted, false);
-    initialState.setVariable(enemy_in_range, false);
-    initialState.setVariable(enemy_in_close_range, false);
-    initialState.setVariable(gun_loaded, false);
-    initialState.setVariable(gun_drawn, false);
-    initialState.setVariable(knife_drawn, false);
-    initialState.setVariable(weapon_in_hand, false);
-    initialState.setVariable(me_dead, false);
-    initialState.setVariable(have_ammo, true);
-    initialState.setVariable(inventory_knife, true);
-    initialState.setVariable(inventory_gun, true);
+    WorldState initial_state;
+    initial_state.setVariable(enemy_dead, false);
+    initial_state.setVariable(enemy_sighted, false);
+    initial_state.setVariable(enemy_in_range, false);
+    initial_state.setVariable(enemy_in_close_range, false);
+    initial_state.setVariable(gun_loaded, false);
+    initial_state.setVariable(gun_drawn, false);
+    initial_state.setVariable(knife_drawn, false);
+    initial_state.setVariable(weapon_in_hand, false);
+    initial_state.setVariable(me_dead, false);
+    initial_state.setVariable(have_ammo, true);
+    initial_state.setVariable(inventory_knife, true);
+    initial_state.setVariable(inventory_gun, true);
 
     // Fire up the A* planner
     AStar as;
-    as.setStart(initialState);
-    as.setGoal(goalStateWin);
-
     try {
-        as.plan(actions);
+        as.plan(initial_state, goal_win, actions);
     }
     catch (const std::exception&) {
         std::cout << "Sorry, could not find a path!\n";

@@ -24,9 +24,6 @@
 namespace goap {
     class AStar {
     private:
-        WorldState start_; // where we begin
-        WorldState goal_;  // where we want to end up
-
         // A master lookup table of ID-to-Node; useful during the action replay
         std::unordered_map<int, Node> known_nodes_;
 
@@ -75,18 +72,25 @@ namespace goap {
     public:
         AStar();
 
-        void setStart(WorldState w) { start_ = w; }
-        void setGoal(WorldState w) { goal_ = w; }
-
+        /**
+         Useful when you're debugging a GOAP plan: simply dumps the open list to stdout.
+        */
         void printOpenList() const;
+
+        /**
+         Useful when you're debugging a GOAP plan: simply dumps the closed list to stdout.
+        */
         void printClosedList() const;
 
         /**
          Actually attempt to formulate a plan from start to goal, given a pool of
          available actions.
+         @param start the starting worldstate
+         @param goal the goal worldstate
          @param actions the available action pool
+         @exception std::runtime_error if no plan could be made with the available actions & goal
          */
-        void plan(std::vector<Action>& actions);
+        void plan(WorldState& start, WorldState& goal, std::vector<Action>& actions);
 
         TEST_FRIENDS;
     };

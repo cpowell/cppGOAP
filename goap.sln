@@ -42,7 +42,6 @@ Global
 		{153C91A2-4B17-4E1D-9CED-A1D417E11878}.Release|Win32.ActiveCfg = Release|Win32
 		{153C91A2-4B17-4E1D-9CED-A1D417E11878}.Release|Win32.Build.0 = Release|Win32
 		{153C91A2-4B17-4E1D-9CED-A1D417E11878}.Testing|Win32.ActiveCfg = Release|Win32
-		{153C91A2-4B17-4E1D-9CED-A1D417E11878}.Testing|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

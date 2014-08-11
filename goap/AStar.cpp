@@ -48,21 +48,19 @@ goap::Node* goap::AStar::memberOfOpen(const WorldState& ws) {
 }
 
 void goap::AStar::printOpenList() const {
-
     for (const auto& n : open_) {
         std::cout << n << std::endl;
     }
 }
 
 void goap::AStar::printClosedList() const {
-
     for (const auto& n : closed_) {
         std::cout << n << std::endl;
     }
 }
 
-void goap::AStar::plan(std::vector<Action>& actions) {
-    Node n(start_, 0, calculateHeuristic(start_, goal_), 0, nullptr);
+void goap::AStar::plan(WorldState& start, WorldState& goal, std::vector<Action>& actions) {
+    Node n(start, 0, calculateHeuristic(start, goal), 0, nullptr);
 
     known_nodes_[n.id_] = n;
     open_.push_back(std::move(n));
@@ -90,7 +88,7 @@ void goap::AStar::plan(std::vector<Action>& actions) {
         /*        std::cout << "\nCurrent is " << current << std::endl;*/
 
         // Is our current state the goal state? If so, we've found a path, yay.
-        if (current.ws_.meetsGoal(goal_)) {
+        if (current.ws_.meetsGoal(goal)) {
             std::cout << "Found a path!\n";
             do {
                 std::cout << current.action_->name() << " yields " << current.ws_ << std::endl;
@@ -117,7 +115,7 @@ void goap::AStar::plan(std::vector<Action>& actions) {
                     //   if not on open list,
                     //     make me its parent
                     //     record f,g,h for it
-                    Node found(possibility, (current.g_ + action.cost()), (calculateHeuristic(possibility, goal_)), current.id_, &action);
+                    Node found(possibility, (current.g_ + action.cost()), (calculateHeuristic(possibility, goal)), current.id_, &action);
                     known_nodes_[found.id_] = found;
 
                     //     add to open list, mainining the sort-by-F order there
@@ -128,7 +126,7 @@ void goap::AStar::plan(std::vector<Action>& actions) {
                         //std::cout << "My path is better\n";
                         needle->parent_id_ = current.id_;                     //       make me its parent
                         needle->g_ = current.g_ + action.cost();              //       recalc F,G for it
-                        needle->h_ = calculateHeuristic(possibility, goal_);
+                        needle->h_ = calculateHeuristic(possibility, goal);
                         std::sort(open_.begin(), open_.end());                //       resort open list to account for new F
                     }
                 }
