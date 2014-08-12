@@ -44,7 +44,7 @@ namespace goap {
          @param ws the worldstate in question
          @return a pointer to the note if found, nullptr if not
          */
-        Node* memberOfOpen(const WorldState& ws);
+        std::vector<goap::Node>::iterator goap::AStar::memberOfOpen(const WorldState& ws);
 
         /**
          Pops the first Node from the 'open' list, moves it to the 'closed' list, and
@@ -91,7 +91,7 @@ namespace goap {
          @return a vector of Actions in REVERSE ORDER - use a reverse_iterator on this to get stepwise-order
          @exception std::runtime_error if no plan could be made with the available actions and states
          */
-        std::vector<Action> plan(WorldState& start, WorldState& goal, std::vector<Action>& actions);
+        std::vector<Action> plan(const WorldState& start, const WorldState& goal, const std::vector<Action>& actions);
 
         TEST_FRIENDS;
     };

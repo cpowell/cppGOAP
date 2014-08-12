@@ -30,21 +30,15 @@ goap::Node& goap::AStar::popAndClose() {
 }
 
 bool goap::AStar::memberOfClosed(const WorldState& ws) const {
-    for (const auto& node : closed_) {
-        if (node.ws_ == ws) {
+    if (std::find_if(begin(closed_), end(closed_), [&](const Node& n) { return n.ws_ == ws; }) == end(closed_)) {
+        return false;
+    } else {
             return true;
         }
     }
-    return false;
-}
 
-goap::Node* goap::AStar::memberOfOpen(const WorldState& ws) {
-    for (auto& node : open_) {
-        if (node.ws_ == ws) {
-            return &node;
-        }
-    }
-    return nullptr;
+std::vector<goap::Node>::iterator goap::AStar::memberOfOpen(const WorldState& ws) {
+    return std::find_if(begin(open_), end(open_), [&](const Node& n) { return n.ws_ == ws; });
 }
 
 void goap::AStar::printOpenList() const {
@@ -108,8 +102,8 @@ std::vector<goap::Action> goap::AStar::plan(WorldState& start, WorldState& goal,
                     continue;
                 }
 
-                Node* needle = memberOfOpen(possibility);
-                if (needle==nullptr) {
+                auto needle = memberOfOpen(possibility);
+                if (needle==end(open_)) {
                     //   if not on open list,
                     //     make me its parent
                     //     record f,g,h for it
