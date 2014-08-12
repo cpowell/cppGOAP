@@ -33,9 +33,9 @@ bool goap::AStar::memberOfClosed(const WorldState& ws) const {
     if (std::find_if(begin(closed_), end(closed_), [&](const Node& n) { return n.ws_ == ws; }) == end(closed_)) {
         return false;
     } else {
-            return true;
-        }
+        return true;
     }
+}
 
 std::vector<goap::Node>::iterator goap::AStar::memberOfOpen(const WorldState& ws) {
     return std::find_if(begin(open_), end(open_), [&](const Node& n) { return n.ws_ == ws; });
@@ -95,7 +95,7 @@ std::vector<goap::Action> goap::AStar::plan(const WorldState& start, const World
             return the_plan;
         }
 
-        for (auto& action : actions) {
+        for (const auto& action : actions) {
             // for each node REACHABLE from "me":
             if (action.eligibleFor(current.ws_)) {
                 WorldState possibility = action.actOn(current.ws_);
