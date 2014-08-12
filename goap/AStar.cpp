@@ -53,7 +53,12 @@ void goap::AStar::printClosedList() const {
     }
 }
 
-std::vector<goap::Action> goap::AStar::plan(WorldState& start, WorldState& goal, std::vector<Action>& actions) {
+std::vector<goap::Action> goap::AStar::plan(const WorldState& start, const WorldState& goal, const std::vector<Action>& actions) {
+    // Feasible we'd re-use a planner, so clear out the prior results
+    open_.clear();
+    closed_.clear();
+    known_nodes_.clear();
+
     Node starting_node(start, 0, calculateHeuristic(start, goal), 0, nullptr);
 
     known_nodes_[starting_node.id_] = starting_node;
