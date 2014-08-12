@@ -61,19 +61,15 @@ std::vector<goap::Action> goap::AStar::plan(const WorldState& start, const World
 
     Node starting_node(start, 0, calculateHeuristic(start, goal), 0, nullptr);
 
+    // TODO figure out a more memory-friendly way of doing this...
     known_nodes_[starting_node.id_] = starting_node;
     open_.push_back(std::move(starting_node));
 
-    int iters = 0;
-    do {
-        ++iters;
-//         std::cout << "\n-----------------------\n";
-//         std::cout << "Iteration " << iters << std::endl;
-
-        // If there's nothing left to evaluate, then we have no possible path left
-        if (open_.size() == 0) {
-            throw std::runtime_error("A* planner could not find a path from start to goal");
-        }
+    //int iters = 0;
+    while (open_.size() > 0) {
+        //++iters;
+        //std::cout << "\n-----------------------\n";
+        //std::cout << "Iteration " << iters << std::endl;
 
         // Look for Node with the lowest-F-score on the open list. Switch it to closed,
         // and hang onto it -- this is our latest node.
@@ -95,40 +91,40 @@ std::vector<goap::Action> goap::AStar::plan(const WorldState& start, const World
             return the_plan;
         }
 
+        // Check each node REACHABLE from current
         for (const auto& action : actions) {
-            // for each node REACHABLE from "me":
             if (action.eligibleFor(current.ws_)) {
                 WorldState possibility = action.actOn(current.ws_);
                 //std::cout << "Hmm, " << action.name() << " could work..." << "resulting in " << possibility << std::endl;
 
-                //   if closed, next
+                // Skip if already closed
                 if (memberOfClosed(possibility)) {
                     //std::cout << "...but that one's closed out.\n";
                     continue;
                 }
 
                 auto needle = memberOfOpen(possibility);
-                if (needle==end(open_)) {
-                    //   if not on open list,
-                    //     make me its parent
-                    //     record f,g,h for it
+                if (needle==end(open_)) { // not a member of open list
+                    // Make a new node, with current as its parent, recording G & H
                     Node found(possibility, current.g_ + action.cost(), calculateHeuristic(possibility, goal), current.id_, &action);
                     known_nodes_[found.id_] = found;
 
-                    //     add to open list, mainining the sort-by-F order there
+                    // Add it to the open list (maintaining sort-order therein)
                     addToOpenList(std::move(found));
-                } else {
-                    //     if my path to it is better (G),
+                } else { // already a member of the open list
+                    // check if the current G is better than the recorded G
                     if ((current.g_ + action.cost()) < needle->g_) {
                         //std::cout << "My path is better\n";
-                        needle->parent_id_ = current.id_;                     //       make me its parent
-                        needle->g_ = current.g_ + action.cost();              //       recalc F,G for it
+                        needle->parent_id_ = current.id_;                     // make current its parent
+                        needle->g_ = current.g_ + action.cost();              // recalc G & H
                         needle->h_ = calculateHeuristic(possibility, goal);
-                        std::sort(open_.begin(), open_.end());                //       resort open list to account for new F
+                        std::sort(open_.begin(), open_.end());                // resort open list to account for the new F
                     }
                 }
             }
         }
-    } while (true);
+    }
 
+    // If there's nothing left to evaluate, then we have no possible path left
+    throw std::runtime_error("A* planner could not find a path from start to goal");
 }
