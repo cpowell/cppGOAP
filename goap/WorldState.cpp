@@ -8,6 +8,10 @@ void goap::WorldState::setVariable(const int var_id, const bool value) {
     vars_[var_id] = value;
 }
 
+bool goap::WorldState::getVariable(const int var_id) const {
+    return vars_.at(var_id);
+}
+
 
 bool goap::WorldState::operator==(const WorldState& other) const {
     return (vars_ == other.vars_);

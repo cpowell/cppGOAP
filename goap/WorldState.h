@@ -28,6 +28,13 @@ namespace goap {
         void setVariable(const int var_id, const bool value);
 
         /**
+         Retrieve the current value of the given variable.
+         @param var_id the unique ID of the state variable
+         @return the value of the variable
+        */
+        bool getVariable(const int var_id) const;
+
+        /**
          Useful if this state is a goal state. It asks, does state 'other'
          meet the requirements of this goal? Takes into account not only this goal's
          state variables, but which variables matter to this goal state.
