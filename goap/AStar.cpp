@@ -119,6 +119,7 @@ std::vector<goap::Action> goap::AStar::plan(const WorldState& start, const World
                         needle->g_ = current.g_ + action.cost();              // recalc G & H
                         needle->h_ = calculateHeuristic(possibility, goal);
                         std::sort(open_.begin(), open_.end());                // resort open list to account for the new F
+                        // sorting likely invalidates the iterator, but we don't need it anymore
                     }
                 }
             }
