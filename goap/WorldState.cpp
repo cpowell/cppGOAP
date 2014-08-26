@@ -1,7 +1,7 @@
 #include "WorldState.h"
 
-goap::WorldState::WorldState() : priority_(0) {
-
+goap::WorldState::WorldState(const std::string name) : priority_(0), name_(name) {
+    //nop
 }
 
 void goap::WorldState::setVariable(const int var_id, const bool value) {

@@ -18,7 +18,7 @@ namespace goap {
         std::string name_; // the human-readable name of the state
         std::map<int, bool> vars_; // the variables that in aggregate describe a worldstate
 
-        WorldState();
+        WorldState(const std::string name="");
 
         /**
          Set a world state variable, e.g. "gunLoaded" / true
