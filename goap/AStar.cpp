@@ -54,6 +54,11 @@ void goap::AStar::printClosedList() const {
 }
 
 std::vector<goap::Action> goap::AStar::plan(const WorldState& start, const WorldState& goal, const std::vector<Action>& actions) {
+    if (start.meetsGoal(goal)) {
+        //throw std::runtime_error("Planner cannot plan when the start state and the goal state are the same!");
+        return std::vector<goap::Action>();
+    }
+
     // Feasible we'd re-use a planner, so clear out the prior results
     open_.clear();
     closed_.clear();
