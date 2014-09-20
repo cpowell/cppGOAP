@@ -1,6 +1,7 @@
 #include "AStar.h"
 
 #include <algorithm>
+#include <cassert>
 #include <iostream>
 
 goap::AStar::AStar() {
@@ -19,10 +20,7 @@ void goap::AStar::addToOpenList(Node&& n) {
 }
 
 goap::Node& goap::AStar::popAndClose() {
-    if (open_.size() == 0) {
-        throw std::invalid_argument("You cannot call popAndClose on an empty open-list!");
-    }
-
+    assert(!open_.empty());
     closed_.push_back(std::move(open_.front()));
     open_.erase(open_.begin());
 

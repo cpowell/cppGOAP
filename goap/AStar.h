@@ -48,9 +48,9 @@ namespace goap {
 
         /**
          Pops the first Node from the 'open' list, moves it to the 'closed' list, and
-         returns a reference to this newly-closed Node.
+         returns a reference to this newly-closed Node. Its behavior is undefined if
+         you call on an empty list.
          @return a reference to the newly closed Node
-         @exception std::invalid_argument if the 'open' list has zero elements
          */
         Node& popAndClose();
 
