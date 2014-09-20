@@ -1,6 +1,8 @@
 #include "Action.h"
 #include "WorldState.h"
 
+#include <cassert>
+
 goap::Action::Action() : cost_(0) {
 }
 
@@ -25,11 +27,10 @@ bool goap::Action::eligibleFor(const WorldState& ws) const {
 }
 
 goap::WorldState goap::Action::actOn(const WorldState& ws) const {
+    assert(eligibleFor(ws));
     goap::WorldState tmp(ws);
-    if (eligibleFor(ws)) {
-        for (const auto& effect : effects_) {
-            tmp.setVariable(effect.first, effect.second);
-        }
+    for (const auto& effect : effects_) {
+        tmp.setVariable(effect.first, effect.second);
     }
     return tmp;
 }
