@@ -42,7 +42,7 @@ namespace goap {
          Is the given worldstate a member of the open list? (And by that we mean,
          does any node on the open list contain an equal worldstate.)
          @param ws the worldstate in question
-         @return a pointer to the note if found, nullptr if not
+         @return a pointer to the note if found, end(open_) if not
          */
         std::vector<goap::Node>::iterator goap::Planner::memberOfOpen(const WorldState& ws);
 

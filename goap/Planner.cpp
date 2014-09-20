@@ -30,9 +30,8 @@ goap::Node& goap::Planner::popAndClose() {
 bool goap::Planner::memberOfClosed(const WorldState& ws) const {
     if (std::find_if(begin(closed_), end(closed_), [&](const Node& n) { return n.ws_ == ws; }) == end(closed_)) {
         return false;
-    } else {
-        return true;
     }
+    return true;
 }
 
 std::vector<goap::Node>::iterator goap::Planner::memberOfOpen(const WorldState& ws) {
@@ -121,7 +120,7 @@ std::vector<goap::Action> goap::Planner::plan(const WorldState& start, const Wor
                         needle->parent_id_ = current.id_;                     // make current its parent
                         needle->g_ = current.g_ + action.cost();              // recalc G & H
                         needle->h_ = calculateHeuristic(possibility, goal);
-                        std::sort(open_.begin(), open_.end());                // resort open list to account for the new F
+                        std::sort(begin(open_), end(open_));                // resort open list to account for the new F
                         // sorting likely invalidates the iterator, but we don't need it anymore
                     }
                 }
