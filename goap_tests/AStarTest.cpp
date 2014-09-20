@@ -12,14 +12,14 @@
     friend class AStarTest_member_of_open_list_returns_iterator_if_found_Test; \
     friend class AStarTest_member_of_open_list_returns_end_if_found_Test; \
  
-#include "AStar.h"
+#include "Planner.h"
 
 namespace goap {
     // The fixture for testing class SimVar.
     class AStarTest : public ::testing::Test {
     protected:
         // Objects declared here can be used by all tests in the test case for this component.
-        AStar a;
+        Planner a;
 
         // You can remove any or all of the following functions if its body is empty.
 

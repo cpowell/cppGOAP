@@ -1,17 +1,17 @@
-#include "AStar.h"
+#include "Planner.h"
 
 #include <algorithm>
 #include <cassert>
 #include <iostream>
 
-goap::AStar::AStar() {
+goap::Planner::Planner() {
 }
 
-int goap::AStar::calculateHeuristic(const WorldState& now, const WorldState& goal) const {
+int goap::Planner::calculateHeuristic(const WorldState& now, const WorldState& goal) const {
     return now.distanceTo(goal);
 }
 
-void goap::AStar::addToOpenList(Node&& n) {
+void goap::Planner::addToOpenList(Node&& n) {
     // insert maintaining sort order
     auto it = std::lower_bound(begin(open_),
                                end(open_),
@@ -19,7 +19,7 @@ void goap::AStar::addToOpenList(Node&& n) {
     open_.emplace(it, std::move(n));
 }
 
-goap::Node& goap::AStar::popAndClose() {
+goap::Node& goap::Planner::popAndClose() {
     assert(!open_.empty());
     closed_.push_back(std::move(open_.front()));
     open_.erase(open_.begin());
@@ -27,7 +27,7 @@ goap::Node& goap::AStar::popAndClose() {
     return closed_.back();
 }
 
-bool goap::AStar::memberOfClosed(const WorldState& ws) const {
+bool goap::Planner::memberOfClosed(const WorldState& ws) const {
     if (std::find_if(begin(closed_), end(closed_), [&](const Node& n) { return n.ws_ == ws; }) == end(closed_)) {
         return false;
     } else {
@@ -35,23 +35,23 @@ bool goap::AStar::memberOfClosed(const WorldState& ws) const {
     }
 }
 
-std::vector<goap::Node>::iterator goap::AStar::memberOfOpen(const WorldState& ws) {
+std::vector<goap::Node>::iterator goap::Planner::memberOfOpen(const WorldState& ws) {
     return std::find_if(begin(open_), end(open_), [&](const Node& n) { return n.ws_ == ws; });
 }
 
-void goap::AStar::printOpenList() const {
+void goap::Planner::printOpenList() const {
     for (const auto& n : open_) {
         std::cout << n << std::endl;
     }
 }
 
-void goap::AStar::printClosedList() const {
+void goap::Planner::printClosedList() const {
     for (const auto& n : closed_) {
         std::cout << n << std::endl;
     }
 }
 
-std::vector<goap::Action> goap::AStar::plan(const WorldState& start, const WorldState& goal, const std::vector<Action>& actions) {
+std::vector<goap::Action> goap::Planner::plan(const WorldState& start, const WorldState& goal, const std::vector<Action>& actions) {
     if (start.meetsGoal(goal)) {
         //throw std::runtime_error("Planner cannot plan when the start state and the goal state are the same!");
         return std::vector<goap::Action>();

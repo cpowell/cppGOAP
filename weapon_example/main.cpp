@@ -6,7 +6,7 @@
  */
 
 #include "Action.h"
-#include "AStar.h"
+#include "Planner.h"
 #include "WorldState.h"
 
 #include <iostream>
@@ -149,7 +149,7 @@ int main(void) {
     initial_state.setVariable(inventory_gun, true);
 
     // Fire up the A* planner
-    AStar as;
+    Planner as;
     try {
         std::vector<Action> the_plan = as.plan(initial_state, goal_win, actions);
         std::cout << "Found a path!\n";

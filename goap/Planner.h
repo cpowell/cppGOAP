@@ -22,7 +22,7 @@
 #endif
 
 namespace goap {
-    class AStar {
+    class Planner {
     private:
         // A master lookup table of ID-to-Node; useful during the action replay
         std::unordered_map<int, Node> known_nodes_;
@@ -44,7 +44,7 @@ namespace goap {
          @param ws the worldstate in question
          @return a pointer to the note if found, nullptr if not
          */
-        std::vector<goap::Node>::iterator goap::AStar::memberOfOpen(const WorldState& ws);
+        std::vector<goap::Node>::iterator goap::Planner::memberOfOpen(const WorldState& ws);
 
         /**
          Pops the first Node from the 'open' list, moves it to the 'closed' list, and
@@ -70,7 +70,7 @@ namespace goap {
         int calculateHeuristic(const WorldState& now, const WorldState& goal) const;
 
     public:
-        AStar();
+        Planner();
 
         /**
          Useful when you're debugging a GOAP plan: simply dumps the open list to stdout.

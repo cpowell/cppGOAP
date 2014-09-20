@@ -6,7 +6,7 @@
 */
 
 #include "Action.h"
-#include "AStar.h"
+#include "Planner.h"
 #include "WorldState.h"
 
 #include <iostream>
@@ -65,7 +65,7 @@ int main(void) {
     goal_target_dead.priority_ = 50;
 
     // Fire up the A* planner
-    AStar as;
+    Planner as;
     try {
         std::vector<Action> the_plan = as.plan(initial_state, goal_target_dead, actions);
         std::cout << "Found a path!\n";
