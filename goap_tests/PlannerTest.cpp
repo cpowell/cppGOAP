@@ -2,32 +2,32 @@
 
 // https://stackoverflow.com/questions/14186245/unit-testing-c-how-to-test-private-members
 #define TEST_FRIENDS \
-    friend class AStarTest_pop_and_close_for_empty_open_throws_Test; \
-    friend class AStarTest_add_to_open_list_preserves_sorting_Test; \
-    friend class AStarTest_pop_and_close_for_empty_open_does_nothing_Test; \
-    friend class AStarTest_pop_and_close_moves_first_element_from_open_to_closed_Test; \
-    friend class AStarTest_pop_and_close_appends_element_to_closed_Test; \
-    friend class AStarTest_member_of_closed_list_returns_true_if_found_Test; \
-    friend class AStarTest_member_of_closed_list_returns_false_if_not_found_Test; \
-    friend class AStarTest_member_of_open_list_returns_iterator_if_found_Test; \
-    friend class AStarTest_member_of_open_list_returns_end_if_found_Test; \
+    friend class PlannerTest_pop_and_close_for_empty_open_throws_Test; \
+    friend class PlannerTest_add_to_open_list_preserves_sorting_Test; \
+    friend class PlannerTest_pop_and_close_for_empty_open_does_nothing_Test; \
+    friend class PlannerTest_pop_and_close_moves_first_element_from_open_to_closed_Test; \
+    friend class PlannerTest_pop_and_close_appends_element_to_closed_Test; \
+    friend class PlannerTest_member_of_closed_list_returns_true_if_found_Test; \
+    friend class PlannerTest_member_of_closed_list_returns_false_if_not_found_Test; \
+    friend class PlannerTest_member_of_open_list_returns_iterator_if_found_Test; \
+    friend class PlannerTest_member_of_open_list_returns_end_if_found_Test; \
  
 #include "Planner.h"
 
 namespace goap {
     // The fixture for testing class SimVar.
-    class AStarTest : public ::testing::Test {
+    class PlannerTest : public ::testing::Test {
     protected:
         // Objects declared here can be used by all tests in the test case for this component.
         Planner a;
 
         // You can remove any or all of the following functions if its body is empty.
 
-        AStarTest() {
+        PlannerTest() {
             // You can do set-up work for each test here.
         }
 
-        virtual ~AStarTest() {
+        virtual ~PlannerTest() {
             // You can do clean-up work that doesn't throw exceptions here.
         }
 
@@ -45,7 +45,7 @@ namespace goap {
         }
     };
 
-    TEST_F(AStarTest, member_of_closed_list_returns_true_if_found) {
+    TEST_F(PlannerTest, member_of_closed_list_returns_true_if_found) {
         Node n1;
         n1.g_ = 10;
         WorldState w1;
@@ -62,7 +62,7 @@ namespace goap {
         ASSERT_TRUE(a.memberOfClosed(w2));
     }
 
-    TEST_F(AStarTest, member_of_closed_list_returns_false_if_not_found) {
+    TEST_F(PlannerTest, member_of_closed_list_returns_false_if_not_found) {
         Node n1;
         n1.g_ = 10;
         WorldState w1;
@@ -79,7 +79,7 @@ namespace goap {
         ASSERT_FALSE(a.memberOfClosed(w2));
     }
 
-    TEST_F(AStarTest, member_of_open_list_returns_iterator_if_found) {
+    TEST_F(PlannerTest, member_of_open_list_returns_iterator_if_found) {
         Node n1;
         n1.g_ = 10;
         WorldState w1;
@@ -95,7 +95,7 @@ namespace goap {
         ASSERT_NE(end(a.open_), a.memberOfOpen(w2));
     }
 
-    TEST_F(AStarTest, member_of_open_list_returns_end_if_found) {
+    TEST_F(PlannerTest, member_of_open_list_returns_end_if_found) {
         Node n1;
         n1.g_ = 10;
         WorldState w1;
@@ -111,7 +111,7 @@ namespace goap {
         ASSERT_EQ(end(a.open_), a.memberOfOpen(w2));
     }
 
-    TEST_F(AStarTest, add_to_open_list_preserves_sorting) {
+    TEST_F(PlannerTest, add_to_open_list_preserves_sorting) {
         Node n1, n2, n3, n4, n5;
         n1.g_ = 10;
         n2.g_ = 5;
@@ -132,12 +132,7 @@ namespace goap {
         ASSERT_EQ(15, a.open_[4].g_);
     }
 
-    TEST_F(AStarTest, pop_and_close_for_empty_open_throws) {
-        ASSERT_EQ(0, a.open_.size());
-        ASSERT_ANY_THROW(a.popAndClose());
-    }
-
-    TEST_F(AStarTest, pop_and_close_moves_first_element_from_open_to_closed) {
+    TEST_F(PlannerTest, pop_and_close_moves_first_element_from_open_to_closed) {
         Node n1, n2, n3, n4, n5;
         n1.g_ = 10;
         n2.g_ = 5;
