@@ -16,7 +16,7 @@
     <ClCompile Include="NodeTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AStarTest.cpp">
+    <ClCompile Include="PlannerTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
