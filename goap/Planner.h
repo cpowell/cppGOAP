@@ -1,5 +1,5 @@
 /**
- * @class AStar
+ * @class Planner
  * @brief Implements an A* algorithm for searching the action space
  *
  * @date July 2014

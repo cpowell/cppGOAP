@@ -85,7 +85,7 @@ TEST_F(ActionTest, action_takes_effect_where_applicable) {
     ASSERT_FALSE(ws_new.vars_[0]);
 }
 
-TEST_F(ActionTest, action_has_no_effect_where_inapplicable) {
+TEST_F(ActionTest, action_has_an_effect_even_where_inapplicable) {
     WorldState ws;
     ws.setVariable(0, true);
     ws.setVariable(1, true);
@@ -103,7 +103,7 @@ TEST_F(ActionTest, action_has_no_effect_where_inapplicable) {
     ASSERT_TRUE(ws_new.vars_[4]);
 }
 
-TEST_F(ActionTest, action_has_no_effect_when_ineligible) {
+TEST_F(ActionTest, action_has_an_effect_even_when_ineligible) {
     WorldState ws;
     ws.setVariable(0, true);
     ws.setVariable(1, true);
@@ -116,7 +116,7 @@ TEST_F(ActionTest, action_has_no_effect_when_ineligible) {
 
     WorldState ws_new = act.actOn(ws);
     ASSERT_TRUE(ws_new.vars_[0]);
-    ASSERT_TRUE(ws_new.vars_[1]);
+    ASSERT_FALSE(ws_new.vars_[1]);
     ASSERT_TRUE(ws_new.vars_[2]);
     ASSERT_TRUE(ws_new.vars_[3]);
     ASSERT_TRUE(ws_new.vars_[4]);
