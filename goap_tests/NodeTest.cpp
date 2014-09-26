@@ -1,6 +1,5 @@
 #include "gtest/gtest.h"
 
-#define private public
 #include "Node.h"
 
 using namespace goap;

@@ -1,6 +1,5 @@
 #include "gtest/gtest.h"
 
-#define private public
 #include "WorldState.h"
 
 using namespace goap;

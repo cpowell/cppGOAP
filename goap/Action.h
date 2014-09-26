@@ -11,6 +11,11 @@
 #include <string>
 #include <unordered_map>
 
+// To support Google Test for private members
+#ifndef TEST_FRIENDS
+#define TEST_FRIENDS
+#endif
+
 namespace goap {
     struct WorldState;
 
@@ -66,6 +71,8 @@ namespace goap {
         int cost() const { return cost_; }
 
         std::string name() const { return name_; }
+
+        TEST_FRIENDS;
     };
 
 }
