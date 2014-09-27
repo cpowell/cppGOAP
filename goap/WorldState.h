@@ -41,7 +41,7 @@ namespace goap {
          @param other the state you are testing as having met this goal state
          @return true if it meets this goal state, false otherwise
          */
-        bool WorldState::meetsGoal(const WorldState& goal_state) const;
+        bool meetsGoal(const WorldState& goal_state) const;
 
         /**
          Given the other state -- and what 'matters' to the other state -- how many

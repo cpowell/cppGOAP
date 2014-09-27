@@ -10,6 +10,6 @@ goap::Node::Node(const WorldState state, int g, int h, int parent_id, const Acti
     id_ = ++last_id_;
 }
 
-bool goap::Node::operator<(const Node& other) {
-    return f() < other.f();
-}
+//bool goap::Node::operator<(const Node& other) {
+//    return f() < other.f();
+//}
