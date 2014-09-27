@@ -6,6 +6,13 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		83A71C2219D783950062D951 /* Action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83B17F5219D77CD30025658A /* Action.cpp */; };
+		83A71C2319D7839D0062D951 /* WorldState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83B17F5819D77CD30025658A /* WorldState.cpp */; };
+		83A71C2419D783A20062D951 /* Planner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83B17F5619D77CD30025658A /* Planner.cpp */; };
+		83A71C2519D783AF0062D951 /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83B17F5419D77CD30025658A /* Node.cpp */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		83B17F5219D77CD30025658A /* Action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Action.cpp; sourceTree = "<group>"; };
 		83B17F5319D77CD30025658A /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
@@ -127,6 +134,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83A71C2519D783AF0062D951 /* Node.cpp in Sources */,
+				83A71C2419D783A20062D951 /* Planner.cpp in Sources */,
+				83A71C2319D7839D0062D951 /* WorldState.cpp in Sources */,
+				83A71C2219D783950062D951 /* Action.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,6 +271,7 @@
 				83B17F6C19D77EFA0025658A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

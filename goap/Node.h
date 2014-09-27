@@ -44,9 +44,7 @@ namespace goap {
         friend std::ostream& operator<<(std::ostream& out, const Node& n);
     };
 
-    bool operator<(const Node& lhs, const Node& rhs) {
-        return lhs.f() < rhs.f();
-    }
+    bool operator<(const Node& lhs, const Node& rhs);
     
     inline std::ostream& operator<<(std::ostream& out, const Node& n) {
         out << "Node { id:" << n.id_ << " parent:" << n.parent_id_ << " F:" << n.f() << " G:" << n.g_ << " H:" << n.h_;
