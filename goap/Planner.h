@@ -44,7 +44,7 @@ namespace goap {
          @param ws the worldstate in question
          @return a pointer to the note if found, end(open_) if not
          */
-        std::vector<goap::Node>::iterator goap::Planner::memberOfOpen(const WorldState& ws);
+        std::vector<goap::Node>::iterator memberOfOpen(const WorldState& ws);
 
         /**
          Pops the first Node from the 'open' list, moves it to the 'closed' list, and
