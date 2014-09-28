@@ -11,9 +11,36 @@
 		83A71C2319D7839D0062D951 /* WorldState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83B17F5819D77CD30025658A /* WorldState.cpp */; };
 		83A71C2419D783A20062D951 /* Planner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83B17F5619D77CD30025658A /* Planner.cpp */; };
 		83A71C2519D783AF0062D951 /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83B17F5419D77CD30025658A /* Node.cpp */; };
+		83A71C4419D786460062D951 /* libgoap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 83B17F6219D77EFA0025658A /* libgoap.dylib */; };
+		83A71C4719D787930062D951 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83A71C3519D785E70062D951 /* main.cpp */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		83A71C4219D786400062D951 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 833A93ED1971FB7600AB6B66 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 83B17F6119D77EFA0025658A;
+			remoteInfo = goap;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		83A71C3919D785FC0062D951 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		83A71C2719D785A60062D951 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = wargame_example/main.cpp; sourceTree = "<group>"; };
+		83A71C3519D785E70062D951 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = weapon_example/main.cpp; sourceTree = "<group>"; };
+		83A71C3B19D785FC0062D951 /* weapon_example */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = weapon_example; sourceTree = BUILT_PRODUCTS_DIR; };
 		83B17F5219D77CD30025658A /* Action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Action.cpp; sourceTree = "<group>"; };
 		83B17F5319D77CD30025658A /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
 		83B17F5419D77CD30025658A /* Node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Node.cpp; sourceTree = "<group>"; };
@@ -26,6 +53,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		83A71C3819D785FC0062D951 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83A71C4419D786460062D951 /* libgoap.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		83B17F5F19D77EFA0025658A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -39,6 +74,8 @@
 		833A93EC1971FB7600AB6B66 = {
 			isa = PBXGroup;
 			children = (
+				83A71C3419D785DB0062D951 /* weapon example */,
+				83A71C2619D7859B0062D951 /* wargame example */,
 				833A93F71971FB7600AB6B66 /* src */,
 				833A93F61971FB7600AB6B66 /* Products */,
 			);
@@ -48,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				83B17F6219D77EFA0025658A /* libgoap.dylib */,
+				83A71C3B19D785FC0062D951 /* weapon_example */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -68,6 +106,22 @@
 			path = goap;
 			sourceTree = "<group>";
 		};
+		83A71C2619D7859B0062D951 /* wargame example */ = {
+			isa = PBXGroup;
+			children = (
+				83A71C2719D785A60062D951 /* main.cpp */,
+			);
+			name = "wargame example";
+			sourceTree = "<group>";
+		};
+		83A71C3419D785DB0062D951 /* weapon example */ = {
+			isa = PBXGroup;
+			children = (
+				83A71C3519D785E70062D951 /* main.cpp */,
+			);
+			name = "weapon example";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -81,6 +135,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		83A71C3A19D785FC0062D951 /* weapon_example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83A71C3F19D785FC0062D951 /* Build configuration list for PBXNativeTarget "weapon_example" */;
+			buildPhases = (
+				83A71C3719D785FC0062D951 /* Sources */,
+				83A71C3819D785FC0062D951 /* Frameworks */,
+				83A71C3919D785FC0062D951 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				83A71C4319D786400062D951 /* PBXTargetDependency */,
+			);
+			name = weapon_example;
+			productName = weapon_example;
+			productReference = 83A71C3B19D785FC0062D951 /* weapon_example */;
+			productType = "com.apple.product-type.tool";
+		};
 		83B17F6119D77EFA0025658A /* goap */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 83B17F6A19D77EFA0025658A /* Build configuration list for PBXNativeTarget "goap" */;
@@ -107,6 +179,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Prylis Inc.";
 				TargetAttributes = {
+					83A71C3A19D785FC0062D951 = {
+						CreatedOnToolsVersion = 6.0.1;
+					};
 					83B17F6119D77EFA0025658A = {
 						CreatedOnToolsVersion = 6.0.1;
 					};
@@ -125,11 +200,20 @@
 			projectRoot = "";
 			targets = (
 				83B17F6119D77EFA0025658A /* goap */,
+				83A71C3A19D785FC0062D951 /* weapon_example */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		83A71C3719D785FC0062D951 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83A71C4719D787930062D951 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		83B17F5E19D77EFA0025658A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -143,11 +227,20 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		83A71C4319D786400062D951 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 83B17F6119D77EFA0025658A /* goap */;
+			targetProxy = 83A71C4219D786400062D951 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		833A93FC1971FB7600AB6B66 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -161,6 +254,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -177,7 +271,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -186,6 +279,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -214,10 +308,38 @@
 			};
 			name = Release;
 		};
+		83A71C4019D785FC0062D951 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = "/Users/chris/Library/Developer/Xcode/DerivedData/goap-eqzprqyjlndfnffvjyuxhwqrlgaj/Build/Products/Debug";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		83A71C4119D785FC0062D951 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				LIBRARY_SEARCH_PATHS = "/Users/chris/Library/Developer/Xcode/DerivedData/goap-eqzprqyjlndfnffvjyuxhwqrlgaj/Build/Products/Debug";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		83B17F6B19D77EFA0025658A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -229,8 +351,10 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				MACH_O_TYPE = mh_dylib;
 				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -238,7 +362,6 @@
 		83B17F6C19D77EFA0025658A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -246,7 +369,8 @@
 				EXECUTABLE_PREFIX = lib;
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				MACH_O_TYPE = mh_dylib;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -260,6 +384,15 @@
 			buildConfigurations = (
 				833A93FC1971FB7600AB6B66 /* Debug */,
 				833A93FD1971FB7600AB6B66 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		83A71C3F19D785FC0062D951 /* Build configuration list for PBXNativeTarget "weapon_example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83A71C4019D785FC0062D951 /* Debug */,
+				83A71C4119D785FC0062D951 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
