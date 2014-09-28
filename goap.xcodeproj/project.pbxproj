@@ -16,6 +16,8 @@
 		830C2A5A19D86E67005944F4 /* libgtest_main.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 830C2A5719D86E67005944F4 /* libgtest_main.a */; };
 		830C2A5B19D86E67005944F4 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 830C2A5819D86E67005944F4 /* libgtest.a */; };
 		830C2A5C19D86EA6005944F4 /* gtest.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 830C2A5619D86E67005944F4 /* gtest.framework */; };
+		830C2A6419D8703C005944F4 /* libgoap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 83B17F6219D77EFA0025658A /* libgoap.dylib */; };
+		830C2A6A19D8704E005944F4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83A71C2719D785A60062D951 /* main.cpp */; };
 		83A71C2219D783950062D951 /* Action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83B17F5219D77CD30025658A /* Action.cpp */; };
 		83A71C2319D7839D0062D951 /* WorldState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83B17F5819D77CD30025658A /* WorldState.cpp */; };
 		83A71C2419D783A20062D951 /* Planner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83B17F5619D77CD30025658A /* Planner.cpp */; };
@@ -26,6 +28,13 @@
 
 /* Begin PBXContainerItemProxy section */
 		830C2A4F19D86E38005944F4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 833A93ED1971FB7600AB6B66 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 83B17F6119D77EFA0025658A;
+			remoteInfo = goap;
+		};
+		830C2A6019D8703C005944F4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 833A93ED1971FB7600AB6B66 /* Project object */;
 			proxyType = 1;
@@ -52,6 +61,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		830C2A6519D8703C005944F4 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		83A71C3919D785FC0062D951 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 12;
@@ -72,6 +90,7 @@
 		830C2A5619D86E67005944F4 /* gtest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = gtest.framework; path = ../common_libs/gtest.framework; sourceTree = "<group>"; };
 		830C2A5719D86E67005944F4 /* libgtest_main.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest_main.a; path = ../common_libs/libgtest_main.a; sourceTree = "<group>"; };
 		830C2A5819D86E67005944F4 /* libgtest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgtest.a; path = ../common_libs/libgtest.a; sourceTree = "<group>"; };
+		830C2A6919D8703C005944F4 /* weapon_example copy */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "weapon_example copy"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83A71C2719D785A60062D951 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = wargame_example/main.cpp; sourceTree = "<group>"; };
 		83A71C3519D785E70062D951 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = weapon_example/main.cpp; sourceTree = "<group>"; };
 		83A71C3B19D785FC0062D951 /* weapon_example */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = weapon_example; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,6 +114,14 @@
 				830C2A5A19D86E67005944F4 /* libgtest_main.a in Frameworks */,
 				830C2A5B19D86E67005944F4 /* libgtest.a in Frameworks */,
 				830C2A5519D86E57005944F4 /* libgoap.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		830C2A6319D8703C005944F4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				830C2A6419D8703C005944F4 /* libgoap.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,16 +154,24 @@
 			name = tests;
 			sourceTree = "<group>";
 		};
-		833A93EC1971FB7600AB6B66 = {
+		830C2A5D19D87008005944F4 /* dependencies */ = {
 			isa = PBXGroup;
 			children = (
 				830C2A5619D86E67005944F4 /* gtest.framework */,
 				830C2A5719D86E67005944F4 /* libgtest_main.a */,
 				830C2A5819D86E67005944F4 /* libgtest.a */,
+			);
+			name = dependencies;
+			sourceTree = "<group>";
+		};
+		833A93EC1971FB7600AB6B66 = {
+			isa = PBXGroup;
+			children = (
 				830C2A3B19D86E11005944F4 /* tests */,
 				83A71C3419D785DB0062D951 /* weapon example */,
 				83A71C2619D7859B0062D951 /* wargame example */,
 				833A93F71971FB7600AB6B66 /* src */,
+				830C2A5D19D87008005944F4 /* dependencies */,
 				833A93F61971FB7600AB6B66 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -147,6 +182,7 @@
 				83B17F6219D77EFA0025658A /* libgoap.dylib */,
 				83A71C3B19D785FC0062D951 /* weapon_example */,
 				830C2A4819D86E32005944F4 /* goap_tests */,
+				830C2A6919D8703C005944F4 /* weapon_example copy */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -212,6 +248,24 @@
 			name = goap_tests;
 			productName = goap_tests;
 			productReference = 830C2A4819D86E32005944F4 /* goap_tests */;
+			productType = "com.apple.product-type.tool";
+		};
+		830C2A5E19D8703C005944F4 /* wargame_example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 830C2A6619D8703C005944F4 /* Build configuration list for PBXNativeTarget "wargame_example" */;
+			buildPhases = (
+				830C2A6119D8703C005944F4 /* Sources */,
+				830C2A6319D8703C005944F4 /* Frameworks */,
+				830C2A6519D8703C005944F4 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				830C2A5F19D8703C005944F4 /* PBXTargetDependency */,
+			);
+			name = wargame_example;
+			productName = weapon_example;
+			productReference = 830C2A6919D8703C005944F4 /* weapon_example copy */;
 			productType = "com.apple.product-type.tool";
 		};
 		83A71C3A19D785FC0062D951 /* weapon_example */ = {
@@ -282,8 +336,9 @@
 			projectRoot = "";
 			targets = (
 				83B17F6119D77EFA0025658A /* goap */,
-				83A71C3A19D785FC0062D951 /* weapon_example */,
 				830C2A4719D86E32005944F4 /* goap_tests */,
+				83A71C3A19D785FC0062D951 /* weapon_example */,
+				830C2A5E19D8703C005944F4 /* wargame_example */,
 			);
 		};
 /* End PBXProject section */
@@ -297,6 +352,14 @@
 				830C2A5219D86E52005944F4 /* NodeTest.cpp in Sources */,
 				830C2A5319D86E52005944F4 /* PlannerTest.cpp in Sources */,
 				830C2A5419D86E52005944F4 /* WorldStateTest.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		830C2A6119D8703C005944F4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				830C2A6A19D8704E005944F4 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,6 +390,11 @@
 			target = 83B17F6119D77EFA0025658A /* goap */;
 			targetProxy = 830C2A4F19D86E38005944F4 /* PBXContainerItemProxy */;
 		};
+		830C2A5F19D8703C005944F4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 83B17F6119D77EFA0025658A /* goap */;
+			targetProxy = 830C2A6019D8703C005944F4 /* PBXContainerItemProxy */;
+		};
 		83A71C4319D786400062D951 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 83B17F6119D77EFA0025658A /* goap */;
@@ -341,17 +409,14 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/chris/Code/cpp/common_libs,
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/chris/Code/cpp/common_libs,
+					"$(PROJECT_DIR)/../common_libs",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -365,16 +430,42 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/chris/Code/cpp/common_libs,
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/chris/Code/cpp/common_libs,
+					"$(PROJECT_DIR)/../common_libs",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		830C2A6719D8703C005944F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = "/Users/chris/Library/Developer/Xcode/DerivedData/goap-eqzprqyjlndfnffvjyuxhwqrlgaj/Build/Products/Debug";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "weapon_example copy";
+			};
+			name = Debug;
+		};
+		830C2A6819D8703C005944F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				LIBRARY_SEARCH_PATHS = "/Users/chris/Library/Developer/Xcode/DerivedData/goap-eqzprqyjlndfnffvjyuxhwqrlgaj/Build/Products/Debug";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "weapon_example copy";
 			};
 			name = Release;
 		};
@@ -397,6 +488,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../common_libs";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -437,6 +529,7 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../common_libs";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -528,6 +621,16 @@
 				830C2A4E19D86E32005944F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		830C2A6619D8703C005944F4 /* Build configuration list for PBXNativeTarget "wargame_example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				830C2A6719D8703C005944F4 /* Debug */,
+				830C2A6819D8703C005944F4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		833A93F01971FB7600AB6B66 /* Build configuration list for PBXProject "goap" */ = {
 			isa = XCConfigurationList;
