@@ -40,8 +40,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\Chris\Source\gtest-1.7.0\include;C:\Users\chris\Source\goap\goap;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Chris\Source\common_libs\Win32;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Chris\code\cpp\gtest-1.7.0\include;C:\Users\chris\code\cpp\goap\goap;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Chris\Code\cpp\common_libs\Win\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
