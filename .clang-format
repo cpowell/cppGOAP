@@ -1,8 +1,16 @@
 AccessModifierOffset: -4
+AlignTrailingComments: true
+AllowShortBlocksOnASingleLine: true
+AllowShortFunctionsOnASingleLine: true
 AllowShortIfStatementsOnASingleLine: false
 BreakBeforeBraces: Attach
+BreakConstructorInitializersBeforeComma: true
 ColumnLimit: 0
+Cpp11BracedListStyle: false
 IndentCaseLabels: false
 IndentWidth: 4
+NamespaceIndentation: All
 Standard: Cpp11
 UseTab: Never
+PointerAlignment: Left
+
