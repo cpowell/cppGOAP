@@ -156,8 +156,7 @@ int main(void) {
         for (std::vector<Action>::reverse_iterator rit = the_plan.rbegin(); rit != the_plan.rend(); ++rit) {
             std::cout << rit->name() << std::endl;
         }
-    }
-    catch (const std::exception&) {
+    } catch (const std::exception&) {
         std::cout << "Sorry, could not find a path!\n";
     }
 
