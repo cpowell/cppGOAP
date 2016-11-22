@@ -40,8 +40,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\chris\Code\googletest-master\googletest\include;C:\Users\chris\code\goap\goap;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\chris\Code\googletest-master\googletest\msvc\gtest\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\googletest-master\googletest\include;$(SolutionDir)goap;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\googletest-master\googletest\msvc\gtest\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -55,6 +55,8 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
