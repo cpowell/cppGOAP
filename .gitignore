@@ -196,7 +196,6 @@ desktop.ini
 
 # Xcode
 .DS_Store
-build/
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -218,3 +217,4 @@ Pods
 /Debug 64/
 /Testing/
 /UnitTesting/
+*.VC.db
