@@ -28,14 +28,14 @@ goap::Node& goap::Planner::popAndClose() {
 }
 
 bool goap::Planner::memberOfClosed(const WorldState& ws) const {
-    if (std::find_if(begin(closed_), end(closed_), [&](const Node& n) { return n.ws_ == ws; }) == end(closed_)) {
+    if (std::find_if(begin(closed_), end(closed_), [&](const Node & n) { return n.ws_ == ws; }) == end(closed_)) {
         return false;
     }
     return true;
 }
 
 std::vector<goap::Node>::iterator goap::Planner::memberOfOpen(const WorldState& ws) {
-    return std::find_if(begin(open_), end(open_), [&](const Node& n) { return n.ws_ == ws; });
+    return std::find_if(begin(open_), end(open_), [&](const Node & n) { return n.ws_ == ws; });
 }
 
 void goap::Planner::printOpenList() const {
@@ -59,12 +59,9 @@ std::vector<goap::Action> goap::Planner::plan(const WorldState& start, const Wor
     // Feasible we'd re-use a planner, so clear out the prior results
     open_.clear();
     closed_.clear();
-    known_nodes_.clear();
 
     Node starting_node(start, 0, calculateHeuristic(start, goal), 0, nullptr);
 
-    // TODO figure out a more memory-friendly way of doing this...
-    known_nodes_[starting_node.id_] = starting_node;
     open_.push_back(std::move(starting_node));
 
     //int iters = 0;
@@ -81,48 +78,53 @@ std::vector<goap::Action> goap::Planner::plan(const WorldState& start, const Wor
         //printOpenList();
         //std::cout << "Closed list\n";
         //printClosedList();
-        //std::cout << "\nCurrent is " << current << std::endl;
+        //std::cout << "\nCurrent is " << current << " : " << (current.action_ == nullptr ? "" : current.action_->name()) << std::endl;
 
         // Is our current state the goal state? If so, we've found a path, yay.
         if (current.ws_.meetsGoal(goal)) {
             std::vector<Action> the_plan;
             do {
                 the_plan.push_back(*current.action_);
-                current = known_nodes_.at(current.parent_id_);
+                auto itr = std::find_if(begin(open_), end(open_), [&](const Node & n) { return n.id_ == current.parent_id_; });
+                if (itr == end(open_)) {
+                    itr = std::find_if(begin(closed_), end(closed_), [&](const Node & n) { return n.id_ == current.parent_id_; });
+                }
+                current = *itr;
             } while (current.parent_id_ != 0);
             return the_plan;
         }
 
-        // Check each node REACHABLE from current
-        for (const auto& action : actions) {
-            if (action.eligibleFor(current.ws_)) {
-                WorldState possibility = action.actOn(current.ws_);
-                //std::cout << "Hmm, " << action.name() << " could work..." << "resulting in " << possibility << std::endl;
+        // Check each node REACHABLE from current -- in other words, where can we go from here?
+        for (const auto& potential_action : actions) {
+            if (potential_action.operableOn(current.ws_)) {
+                WorldState outcome = potential_action.actOn(current.ws_);
 
                 // Skip if already closed
-                if (memberOfClosed(possibility)) {
-                    //std::cout << "...but that one's closed out.\n";
+                if (memberOfClosed(outcome)) {
                     continue;
                 }
 
-                auto needle = memberOfOpen(possibility);
-                if (needle==end(open_)) { // not a member of open list
-                    // Make a new node, with current as its parent, recording G & H
-                    Node found(possibility, current.g_ + action.cost(), calculateHeuristic(possibility, goal), current.id_, &action);
-                    known_nodes_[found.id_] = found;
+                //std::cout << potential_action.name() << " will get us to " << outcome << std::endl;
 
+                // Look for a Node with this WorldState on the open list.
+                auto p_outcome_node = memberOfOpen(outcome);
+                if (p_outcome_node == end(open_)) { // not a member of open list
+                    // Make a new node, with current as its parent, recording G & H
+                    Node found(outcome, current.g_ + potential_action.cost(), calculateHeuristic(outcome, goal), current.id_, &potential_action);
                     // Add it to the open list (maintaining sort-order therein)
                     addToOpenList(std::move(found));
                 } else { // already a member of the open list
                     // check if the current G is better than the recorded G
-                    if ((current.g_ + action.cost()) < needle->g_) {
-                        //std::cout << "My path is better\n";
-                        needle->parent_id_ = current.id_;                     // make current its parent
-                        needle->g_ = current.g_ + action.cost();              // recalc G & H
-                        needle->h_ = calculateHeuristic(possibility, goal);
-                        needle->action_ = &action;
-                        std::sort(begin(open_), end(open_));                // resort open list to account for the new F
-                        // sorting likely invalidates the iterator, but we don't need it anymore
+                    if (current.g_ + potential_action.cost() < p_outcome_node->g_) {
+                        //std::cout << "My path to " << p_outcome_node->ws_ << " using " << potential_action.name() << " (combined cost " << current.g_ + potential_action.cost() << ") is better than existing (cost " <<  p_outcome_node->g_ << "\n";
+                        p_outcome_node->parent_id_ = current.id_;                  // make current its parent
+                        p_outcome_node->g_ = current.g_ + potential_action.cost(); // recalc G & H
+                        p_outcome_node->h_ = calculateHeuristic(outcome, goal);
+                        p_outcome_node->action_ = &potential_action;
+
+                        // resort open list to account for the new F
+                        // sorting likely invalidates the p_outcome_node iterator, but we don't need it anymore
+                        std::sort(begin(open_), end(open_));
                     }
                 }
             }

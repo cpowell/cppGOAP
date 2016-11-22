@@ -12,14 +12,13 @@ goap::Action::Action(std::string name, int cost) : Action() {
     cost_ = cost;
 }
 
-bool goap::Action::eligibleFor(const WorldState& ws) const {
+bool goap::Action::operableOn(const WorldState& ws) const {
     for (const auto& precond : preconditions_) {
         try {
             if (ws.vars_.at(precond.first) != precond.second) {
                 return false;
             }
-        }
-        catch (const std::out_of_range&) {
+        } catch (const std::out_of_range&) {
             return false;
         }
     }

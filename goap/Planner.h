@@ -24,9 +24,6 @@
 namespace goap {
     class Planner {
     private:
-        // A master lookup table of ID-to-Node; useful during the action replay
-        std::unordered_map<int, Node> known_nodes_;
-
         std::vector<Node> open_;   // The A* open list
         std::vector<Node> closed_; // The A* closed list
 

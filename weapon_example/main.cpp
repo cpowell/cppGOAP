@@ -35,15 +35,16 @@ int main(void) {
 
     // Now establish all the possible actions for the action pool
     // In this example we're providing the AI some different FPS actions
-    Action scout("scoutStealthily", 5);
+
+    Action scout("scoutStealthily", 250);
     scout.setPrecondition(enemy_sighted, false);
     scout.setPrecondition(weapon_in_hand, true);
     scout.setEffect(enemy_sighted, true);
     actions.push_back(scout);
 
-    Action run("scoutRunning", 15);
+    Action run("scoutRunning", 150);
     run.setPrecondition(enemy_sighted, false);
-    scout.setPrecondition(weapon_in_hand, true);
+    run.setPrecondition(weapon_in_hand, true);
     run.setEffect(enemy_sighted, true);
     actions.push_back(run);
 

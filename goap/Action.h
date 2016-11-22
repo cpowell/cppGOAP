@@ -40,7 +40,7 @@ namespace goap {
          @param ws the worldstate in question
          @return true if this worldstate meets the preconditions
          */
-        bool eligibleFor(const goap::WorldState& ws) const;
+        bool operableOn(const goap::WorldState& ws) const;
 
         /**
          Act on the given worldstate. Will not check for "eligiblity" and will happily

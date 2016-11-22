@@ -1,5 +1,5 @@
 #include "Node.h"
-
+#include <iostream>
 int goap::Node::last_id_ = 0;
 
 goap::Node::Node() : g_(0), h_(0) {
