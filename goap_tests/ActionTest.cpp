@@ -3,7 +3,7 @@
 // https://stackoverflow.com/questions/14186245/unit-testing-c-how-to-test-private-members
 #define TEST_FRIENDS \
     friend class ActionTest_constructs_in_sane_state_Test;\
- 
+
 #include "Action.h"
 #include "WorldState.h"
 
@@ -49,11 +49,11 @@ namespace goap {
 
         WorldState ws;
         ws.setVariable(0, true);
-        ASSERT_TRUE(act.eligibleFor(ws));
+        ASSERT_TRUE(act.operableOn(ws));
 
         ws.setVariable(1, true);
         ws.setVariable(2, false);
-        ASSERT_TRUE(act.eligibleFor(ws));
+        ASSERT_TRUE(act.operableOn(ws));
     }
 
     TEST_F(ActionTest, elgibility_computes_correctly_when_ineligible) {
@@ -61,11 +61,11 @@ namespace goap {
 
         WorldState ws;
         ws.setVariable(0, false);
-        ASSERT_FALSE(act.eligibleFor(ws));
+        ASSERT_FALSE(act.operableOn(ws));
 
         ws.setVariable(1, true);
         ws.setVariable(2, false);
-        ASSERT_FALSE(act.eligibleFor(ws));
+        ASSERT_FALSE(act.operableOn(ws));
     }
 
     TEST_F(ActionTest, action_with_no_effects_has_no_effect) {
