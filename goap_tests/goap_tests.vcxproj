@@ -41,7 +41,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SolutionDir)..\googletest-master\googletest\include;$(SolutionDir)goap;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)..\googletest-master\googletest\msvc\gtest\Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)..\googletest-master\googletest\msvc\2010\gtest\Win32-Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
