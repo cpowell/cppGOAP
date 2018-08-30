@@ -218,3 +218,7 @@ Pods
 /Testing/
 /UnitTesting/
 *.VC.db
+
+cmake-build-debug
+cmake-build-release
+
