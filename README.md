@@ -17,6 +17,9 @@ Whereas some AI constructs like the fuzzy-logic FAM help you decide "what to do"
 The neat thing about a GOAP planner is that it figures out the 'route' from start to goal entirely by itself. It constructs said route by treating each 
 worldstate as a 'node' on a possible path, and employs the common A* ("A-star") pathfinding algorithm to find the best "path" between the states.
 
+## See it in action
+Mike Dawson made a little demo of cppGOAP to have robotic workers find and carry spare parts to repair buildings. https://www.youtube.com/watch?v=v2shRoZtQj0&feature=youtu.be
+
 ## Building and running
 
 This code leverages the C++11 standard. Visual Studio 2012 (or newer) is required to build the included solution; the code can also be easily adapted to build in XCode or using Clang/LLVM. (Consider these on my to-do list.)
